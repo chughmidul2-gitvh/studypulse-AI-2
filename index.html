@@ -1,0 +1,2251 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#020617">
+    <title>StudyPulse AI: AKTU 1st Year Exam Prep & Mindful Navigator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f5ff',
+                            100: '#e0ebff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        },
+                        accent: {
+                            teal: '#14b8a6',
+                            rose: '#f43f5e',
+                            amber: '#f59e0b',
+                            purple: '#a855f7',
+                            cyan: '#06b6d4'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        
+        .glass-card {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .perspective { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+        
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.15; transform: scale(1); }
+            50% { opacity: 0.35; transform: scale(1.08); }
+        }
+        .animate-pulse-bg { animation: pulse-slow 7s infinite ease-in-out; }
+
+        .otp-input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .drop-zone--over {
+            border-color: #6366f1 !important;
+            background-color: rgba(99, 102, 241, 0.1) !important;
+        }
+    </style>
+    <style>
+        /* ===== Device-adaptive layouts (html[data-device] = mobile | tablet | laptop) ===== */
+        .dev-nav { display: none; }
+        .dev-nav button { color: #94a3b8; background: transparent; border: 0; cursor: pointer; transition: .15s; display: flex; align-items: center; justify-content: center; }
+        .dev-nav button.active { color: #fff; background: #4f46e5; box-shadow: 0 4px 14px rgba(79,70,229,.35); }
+        .dev-nav button i { font-size: 18px; }
+
+
+        /* Custom navigation icons */
+        .dev-nav button svg, .tnav-ic svg { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .dev-nav button svg { width: 24px; height: 24px; stroke: var(--ic, #94a3b8); stroke-width: 1.8; }
+        .dev-nav button svg .f, .tnav-ic svg .f { stroke: none; fill: currentColor; fill-opacity: .0; }
+        .dev-nav button svg .f { fill: var(--ic, #94a3b8); fill-opacity: .22; }
+        .dev-nav button.active svg { stroke: #fff; }
+        .dev-nav button.active svg .f { fill: #fff; fill-opacity: .3; }
+        .dev-nav button span { color: #94a3b8; }
+        .dev-nav button.active span { color: #fff; }
+        .tnav-ic { display: inline-block; width: 15px; height: 15px; margin-right: 4px; vertical-align: -3px; }
+        .tnav-ic svg { width: 100%; height: 100%; stroke: currentColor; stroke-width: 2; }
+        .tnav-ic svg .f { fill-opacity: .2; }
+
+        /* MOBILE: bottom tab bar, thumb-friendly, no zoom-on-focus */
+        html[data-device=mobile] .dev-nav { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 45; justify-content: space-around; gap: 2px;
+            background: rgba(15,23,42,.97); backdrop-filter: blur(14px); border-top: 1px solid rgba(255,255,255,.08);
+            padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); }
+        html[data-device=mobile] .dev-nav button { flex: 1; min-width: 0; flex-direction: column; gap: 3px; padding: 7px 2px; border-radius: 12px; font-size: 10px; font-weight: 600; }
+        html[data-device=mobile] #app-workspace main { padding: 12px 12px calc(92px + env(safe-area-inset-bottom)); }
+        html[data-device=mobile] header span.uppercase { display: none; }
+        html[data-device=mobile] input, html[data-device=mobile] select, html[data-device=mobile] textarea { font-size: 16px !important; }
+        html[data-device=mobile] main button { min-height: 42px; }
+
+        /* TABLET: left navigation rail, roomy touch targets */
+        html[data-device=tablet] .dev-nav { display: flex; flex-direction: column; position: fixed; left: 0; top: var(--hdr, 64px); bottom: 0; width: 84px; z-index: 35; gap: 6px;
+            padding: 12px 6px; overflow-y: auto; background: rgba(15,23,42,.97); border-right: 1px solid rgba(255,255,255,.08); }
+        html[data-device=tablet] .dev-nav button { flex-direction: column; gap: 4px; padding: 10px 2px; border-radius: 14px; font-size: 10.5px; font-weight: 600; }
+        html[data-device=tablet] #app-workspace main { margin-left: 96px; margin-right: 12px; width: auto; max-width: none; padding: 20px 16px 32px; }
+        html[data-device=tablet] main button { min-height: 44px; }
+
+        /* MOBILE + TABLET: header nav replaced by the bar/rail; toast floats so it is always seen */
+        html[data-device=mobile] .dev-topnav, html[data-device=tablet] .dev-topnav { display: none !important; }
+        html[data-device] .dev-strip { display: none !important; }
+        html[data-device=mobile] #toast-banner, html[data-device=tablet] #toast-banner { position: fixed; top: calc(70px + env(safe-area-inset-top)); left: 12px; right: 12px; z-index: 60; margin: 0; }
+        html[data-device=tablet] #toast-banner { left: 100px; }
+        html[data-device=mobile] #idle-modal, html[data-device=tablet] #idle-modal { padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
+
+        /* LAPTOP: classic top navigation, hover states, keyboard shortcuts 1-6 */
+        html[data-device=laptop] .dev-topnav { display: flex !important; }
+    </style>
+</head>
+<body class="h-full flex flex-col font-sans antialiased bg-slate-950 text-slate-100 overflow-x-hidden selection:bg-brand-500 selection:text-white">
+
+    <!-- ==================== 1. FULL-SCREEN MOBILE OTP AUTHENTICATION SCREEN ==================== -->
+    <div id="screen-auth" class="min-h-screen w-full flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 relative overflow-hidden bg-slate-950 z-50">
+        <!-- Background Glowing Orbs -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-600/20 rounded-full filter blur-[130px] pointer-events-none animate-pulse-bg"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-teal/20 rounded-full filter blur-[130px] pointer-events-none animate-pulse-bg"></div>
+
+        <div class="max-w-md w-full glass-card rounded-3xl p-6 sm:p-8 border border-slate-800 shadow-2xl relative z-10 my-auto">
+            
+            <!-- Branding Header -->
+            <div class="text-center space-y-3 mb-6">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 via-accent-purple to-accent-teal flex items-center justify-center text-white font-black text-2xl mx-auto shadow-xl shadow-brand-500/30">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-white font-outfit tracking-tight">StudyPulse AI</h1>
+                    <p class="text-xs text-slate-400 mt-1" id="auth-screen-subtitle">AKTU 1st Year Exam Prep & Verification</p>
+                </div>
+            </div>
+
+            <!-- Auth Mode Switcher -->
+            <div class="grid grid-cols-2 bg-slate-900 p-1 rounded-2xl border border-slate-800 mb-6">
+                <button onclick="switchAuthMode('signup')" id="screen-tab-signup" class="py-2.5 text-xs font-bold rounded-xl text-white bg-brand-600 transition shadow">
+                    New Student OTP
+                </button>
+                <button onclick="switchAuthMode('login')" id="screen-tab-login" class="py-2.5 text-xs font-bold rounded-xl text-slate-400 hover:text-white transition">
+                    Student Login
+                </button>
+            </div>
+
+            <!-- ================= SIGN UP FLOW WITH OTP VERIFICATION ================= -->
+            <div id="signup-flow-container" class="space-y-4">
+                
+                <!-- STEP 1: MOBILE NUMBER INPUT -->
+                <div id="otp-step-1" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Enter Mobile Number</label>
+                        <div class="relative">
+                            <span class="absolute left-3.5 top-3.5 text-slate-400 font-bold text-xs">+91</span>
+                            <input type="tel" id="reg-mobile-input" maxlength="10" placeholder="9876543210" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl pl-12 pr-3.5 py-3 text-xs text-white font-semibold focus:outline-none focus:border-brand-500 transition">
+                        </div>
+                        <p class="text-[10px] text-slate-500 mt-1">An SMS OTP will be generated for student authentication.</p>
+                    </div>
+
+                    <button onclick="sendOTP()" id="btn-send-otp" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-600 to-accent-purple text-white font-bold text-xs shadow-lg shadow-brand-500/20 hover:opacity-95 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Send Verification OTP
+                    </button>
+                </div>
+
+                <!-- STEP 2: OTP VERIFICATION INPUT -->
+                <div id="otp-step-2" class="hidden space-y-4">
+                    <div class="p-3 rounded-2xl bg-brand-500/10 border border-brand-500/30 text-center">
+                        <p class="text-xs text-slate-300">OTP sent to <strong id="display-sent-mobile" class="text-brand-300">+91 9876543210</strong></p>
+                        <button onclick="resetOTPStep()" class="text-[10px] text-accent-teal font-semibold hover:underline mt-1">Change Phone Number</button>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-2 text-center">Enter 6-Digit Verification Code</label>
+                        <div class="flex justify-between gap-1.5" id="otp-inputs-wrapper">
+                            <input type="text" maxlength="1" class="otp-input w-10 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center text-lg font-bold text-white focus:outline-none transition">
+                            <input type="text" maxlength="1" class="otp-input w-10 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center text-lg font-bold text-white focus:outline-none transition">
+                            <input type="text" maxlength="1" class="otp-input w-10 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center text-lg font-bold text-white focus:outline-none transition">
+                            <input type="text" maxlength="1" class="otp-input w-10 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center text-lg font-bold text-white focus:outline-none transition">
+                            <input type="text" maxlength="1" class="otp-input w-10 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center text-lg font-bold text-white focus:outline-none transition">
+                            <input type="text" maxlength="1" class="otp-input w-10 h-12 bg-slate-900 border border-slate-800 rounded-xl text-center text-lg font-bold text-white focus:outline-none transition">
+                        </div>
+                    </div>
+
+                    <!-- Auto Fill OTP Helper -->
+                    <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-center">
+                        <button onclick="autoFillDemoOTP()" class="text-xs text-accent-amber font-bold hover:underline flex items-center justify-center gap-1.5 mx-auto">
+                            <i class="fa-solid fa-key"></i> Auto-Fill Demo OTP (123456)
+                        </button>
+                    </div>
+
+                    <button onclick="verifyOTP()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-accent-teal to-brand-600 text-white font-bold text-xs shadow-lg hover:opacity-95 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-shield-halved"></i> Verify & Continue Registration
+                    </button>
+                </div>
+
+                <!-- STEP 3: REGISTRATION FORM -->
+                <form id="otp-step-3" onsubmit="completeRegistration(event)" class="hidden space-y-3">
+                    <div class="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-center text-xs font-bold flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-circle-check"></i> Mobile Verified! Fill Student Details:
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Full Name</label>
+                        <input type="text" id="reg-name" required placeholder="e.g. Rahul Sharma" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500 transition">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Email Address</label>
+                        <input type="email" id="reg-email" required placeholder="rahul@aktu.ac.in" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500 transition">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">AKTU 1st Year Branch</label>
+                            <select id="reg-branch" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500">
+                                <option value="CSE/IT/AI">CSE / IT / AI-ML</option>
+                                <option value="ECE/EEE">ECE / EEE / EE</option>
+                                <option value="ME">Mechanical (ME)</option>
+                                <option value="CE">Civil Eng (CE)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Semester</label>
+                            <select id="reg-sem" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500">
+                                <option value="Semester 1">Semester 1</option>
+                                <option value="Semester 2">Semester 2</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Password</label>
+                        <input type="password" id="reg-password" required placeholder="••••••••" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500 transition">
+                    </div>
+
+                    <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-600 via-brand-500 to-accent-teal text-white font-bold text-xs shadow-lg shadow-brand-500/20 hover:opacity-95 transition flex items-center justify-center gap-2 mt-2">
+                        <i class="fa-solid fa-user-plus"></i> Complete Registration
+                    </button>
+                </form>
+            </div>
+
+            <!-- ================= RETURNING STUDENT LOGIN FORM ================= -->
+            <form id="login-form-container" onsubmit="handleLoginSubmit(event)" class="hidden space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Registered Mobile or Email</label>
+                    <input type="text" id="login-identifier" required placeholder="Mobile (+91) or Email" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-3.5 py-3 text-xs text-white focus:outline-none focus:border-brand-500 transition">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Password</label>
+                    <input type="password" id="login-password" required placeholder="••••••••" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-3.5 py-3 text-xs text-white focus:outline-none focus:border-brand-500 transition">
+                </div>
+
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-600 via-brand-500 to-accent-purple text-white font-bold text-xs shadow-lg shadow-brand-500/20 hover:opacity-95 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-right-to-bracket"></i> Sign In to Account
+                </button>
+            </form>
+
+            <div class="relative my-5">
+                <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div>
+                <div class="relative flex justify-center text-[10px] uppercase font-bold tracking-wider"><span class="bg-slate-900 px-3 text-slate-500">Fast Hackathon Mode</span></div>
+            </div>
+
+            <!-- Quick Judge Bypass -->
+            <button onclick="loginAsGuest()" class="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-xs transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-bolt text-accent-amber"></i> Quick Demo Guest Sign-In
+            </button>
+        </div>
+
+        <p class="text-[11px] text-slate-500 mt-6 relative z-10 text-center max-w-sm">
+            StudyPulse AI • AKTU 1st Year Exam Prep Solution with OTP Verification, Branch Resource Hub & Active Recall Engine.
+        </p>
+    </div>
+
+    <!-- ==================== MAIN APPLICATION WORKSPACE ==================== -->
+    <div id="app-workspace" class="hidden flex-1 flex-col min-h-screen">
+        <!-- Header Navigation Bar -->
+        <header class="sticky top-0 z-40 glass-card border-b border-slate-800/80 px-4 lg:px-8 py-3">
+            <div class="max-w-7xl mx-auto flex items-center justify-between">
+                <!-- Brand Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 to-accent-purple flex items-center justify-center text-white font-black text-lg shadow-md shadow-brand-500/20">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-extrabold text-base tracking-tight text-white font-outfit">StudyPulse AI</span>
+                            <span class="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-300 border border-brand-500/30">AKTU 1st Year</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Tabs -->
+                <nav class="hidden lg:flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-brand-600 shadow-md">
+                        <i class="fa-solid fa-chart-pie mr-1"></i> Dashboard
+                    </button>
+                    <button onclick="switchTab('aktu-hub')" id="nav-aktu-hub" class="nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">
+                        <i class="fa-solid fa-folder-open mr-1"></i> AKTU 1st Year Hub
+                    </button>
+                    <button onclick="switchTab('recall')" id="nav-recall" class="nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">
+                        <i class="fa-solid fa-brain mr-1"></i> AI Active Recall
+                    </button>
+                    <button onclick="switchTab('roadmap')" id="nav-roadmap" class="nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">
+                        <i class="fa-solid fa-sitemap mr-1"></i> Syllabus Roadmap
+                    </button>
+                    <button onclick="switchTab('pomodoro')" id="nav-pomodoro" class="nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">
+                        <i class="fa-solid fa-clock mr-1"></i> Focus Room
+                    </button>
+                    <button onclick="switchTab('analytics')" id="nav-analytics" class="nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">
+                        <i class="fa-solid fa-chart-line mr-1"></i> Matrix
+                    </button>
+                    <button onclick="switchTab('reminders')" id="nav-reminders" class="nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white">
+                        <i class="fa-solid fa-bell mr-1"></i> Reminders
+                    </button>
+                </nav>
+
+                <!-- Profile Dropdown Menu & Logout Control -->
+                <div class="relative" id="profile-container">
+                    <button onclick="toggleProfileMenu()" class="flex items-center gap-2 p-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-brand-500/50 transition">
+                        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-brand-600 to-accent-purple flex items-center justify-center text-white font-bold text-xs shadow-inner" id="nav-user-initials">
+                            RS
+                        </div>
+                        <span class="text-xs font-bold text-slate-200 pr-1 hidden sm:inline" id="nav-user-firstname">Rahul</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] text-slate-400"></i>
+                    </button>
+
+                    <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-64 glass-card rounded-2xl border border-slate-700 shadow-2xl p-4 z-50 space-y-3">
+                        <div class="pb-3 border-b border-slate-800">
+                            <p class="text-xs font-bold text-white" id="dropdown-fullname">Rahul Sharma</p>
+                            <p class="text-[10px] text-slate-400 font-mono" id="dropdown-email">rahul.sharma@aktu.ac.in</p>
+                            <p class="text-[10px] text-accent-teal font-medium" id="dropdown-mobile">+91 9876543210</p>
+                            <div class="flex gap-1 mt-2">
+                                <span class="px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-300 border border-brand-500/30 text-[10px] font-bold" id="dropdown-branch">CSE / IT</span>
+                                <span class="px-2 py-0.5 rounded-full bg-accent-purple/20 text-accent-purple border border-accent-purple/30 text-[10px] font-bold" id="dropdown-sem">Sem 1</span>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-1">
+                            <button onclick="switchTab('profile')" class="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-300 hover:bg-slate-800 hover:text-white flex items-center gap-2">
+                                <i class="fa-solid fa-user-gear text-brand-400"></i> Manage Student Profile
+                            </button>
+                            <button onclick="handleLogout()" class="w-full text-left px-3 py-2 rounded-xl text-xs text-accent-rose hover:bg-accent-rose/10 flex items-center gap-2 font-semibold">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out to Auth
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Strip -->
+            <div class="flex lg:hidden items-center justify-between pt-2 border-t border-slate-800/60 mt-2 text-xs overflow-x-auto gap-2">
+                <button onclick="switchTab('dashboard')" class="mobile-nav-btn text-brand-400 font-semibold text-[11px] whitespace-nowrap">Dashboard</button>
+                <button onclick="switchTab('aktu-hub')" class="mobile-nav-btn text-slate-400 text-[11px] whitespace-nowrap">AKTU 1st Year Hub</button>
+                <button onclick="switchTab('recall')" class="mobile-nav-btn text-slate-400 text-[11px] whitespace-nowrap">Recall Generator</button>
+                <button onclick="switchTab('roadmap')" class="mobile-nav-btn text-slate-400 text-[11px] whitespace-nowrap">Syllabus</button>
+                <button onclick="switchTab('pomodoro')" class="mobile-nav-btn text-slate-400 text-[11px] whitespace-nowrap">Focus Room</button>
+                <button onclick="switchTab('analytics')" class="mobile-nav-btn text-slate-400 text-[11px] whitespace-nowrap">Analytics</button>
+            </div>
+        </header>
+
+        <!-- Main Content Workspace Container -->
+        <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+            
+            <!-- Toast Banner -->
+            <div id="toast-banner" class="hidden mb-6 p-4 rounded-2xl glass-card border-brand-500/40 flex items-center justify-between text-xs sm:text-sm text-slate-200">
+                <div class="flex items-center gap-3">
+                    <span class="w-7 h-7 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </span>
+                    <span id="toast-message">Mobile verified successfully! Welcome to your AKTU study portal.</span>
+                </div>
+                <button onclick="document.getElementById('toast-banner').classList.add('hidden')" class="text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- ==================== SCREEN 1: DASHBOARD OVERVIEW ==================== -->
+            <section id="tab-dashboard" class="tab-content space-y-6">
+                <div class="glass-card rounded-2xl p-6 sm:p-8 border border-brand-500/20 bg-gradient-to-br from-slate-900/90 via-slate-900/50 to-brand-900/20">
+                    <div class="max-w-3xl space-y-3">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-rose/10 border border-accent-rose/30 text-accent-rose text-xs font-semibold">
+                            <i class="fa-solid fa-shield-halved"></i> <span id="dash-badge-user">OTP Verified Student</span>
+                        </div>
+                        <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-outfit leading-tight">
+                            Welcome Back, <span id="dash-user-firstname" class="bg-clip-text text-transparent bg-gradient-to-r from-brand-400 via-accent-teal to-accent-purple">Rahul</span>!
+                        </h1>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            StudyPulse simplifies AKTU 1st-year syllabi into active recall prompts, downloadable PYQs with solution keys, unit notes, VVI topics, and low-stress study schedules for <strong class="text-brand-300" id="dash-user-branch">CSE / IT</strong> (<span id="dash-user-sem">Semester 1</span>).
+                        </p>
+                        <div class="pt-2 flex flex-wrap gap-3">
+                            <button onclick="switchTab('aktu-hub')" class="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs transition flex items-center gap-2 shadow-lg shadow-brand-600/30">
+                                <i class="fa-solid fa-folder-open"></i> Explore AKTU 1st Year Materials
+                            </button>
+                            <button onclick="switchTab('recall')" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs transition border border-slate-700 flex items-center gap-2">
+                                <i class="fa-solid fa-brain text-brand-400"></i> AI Recall Flashcard Generator
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Metrics Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="glass-card rounded-xl p-5 border-l-4 border-l-brand-500 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Current Branch & Sem</p>
+                            <h3 class="text-base font-bold text-white mt-1" id="dash-card-branch-title">CSE / IT • Sem 1</h3>
+                            <p class="text-xs text-accent-teal font-medium mt-1"><i class="fa-regular fa-clock"></i> Sessional 1 in 12 Days</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-xl p-5 border-l-4 border-l-accent-teal flex items-center justify-between">
+                        <div>
+                            <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold">PYQ & Notes Attached</p>
+                            <h3 class="text-base font-bold text-white mt-1" id="dash-card-file-count">14 Files Available</h3>
+                            <p class="text-xs text-slate-400 mt-1">PYQs, Unit Notes & VVI Topics</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-accent-teal/10 text-accent-teal flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-xl p-5 border-l-4 border-l-accent-purple flex items-center justify-between">
+                        <div>
+                            <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Retention Score</p>
+                            <h3 class="text-base font-bold text-white mt-1">84% Confidence</h3>
+                            <p class="text-xs text-accent-purple font-medium mt-1"><i class="fa-solid fa-fire"></i> Active Recall Active</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-accent-purple/10 text-accent-purple flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-xl p-5 border-l-4 border-l-accent-rose flex items-center justify-between">
+                        <div>
+                            <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Stress Index</p>
+                            <h3 class="text-base font-bold text-emerald-400 mt-1">Optimal / Low</h3>
+                            <p class="text-xs text-slate-400 mt-1">Mindful breathing active</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-accent-rose/10 text-accent-rose flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solution Architectural Workflow Diagram -->
+                <div class="glass-card rounded-2xl p-6 border border-slate-800">
+                    <h2 class="text-lg font-bold text-white mb-2 font-outfit">Solution Architectural Workflow Diagram</h2>
+                    <p class="text-xs text-slate-300 mb-6">Visual pipeline showing how raw AKTU syllabi, notes & PYQs are processed into active recall questions and study schedules.</p>
+
+                    <div class="p-4 bg-slate-900/90 rounded-2xl border border-slate-800 overflow-x-auto">
+                        <svg viewBox="0 0 900 220" class="w-full min-w-[700px] h-auto">
+                            <defs>
+                                <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#4f46e5"/><stop offset="100%" stop-color="#312e81"/>
+                                </linearGradient>
+                                <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#0d9488"/><stop offset="100%" stop-color="#115e59"/>
+                                </linearGradient>
+                                <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#9333ea"/><stop offset="100%" stop-color="#581c87"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M 220 110 L 320 110" stroke="#4f46e5" stroke-width="3" stroke-dasharray="6,6" />
+                            <path d="M 540 110 L 640 110" stroke="#0d9488" stroke-width="3" stroke-dasharray="6,6" />
+
+                            <g onclick="selectDiagramNode('input')" class="cursor-pointer">
+                                <rect x="20" y="40" width="200" height="140" rx="16" fill="url(#g1)" stroke="#818cf8" stroke-width="2"/>
+                                <text x="120" y="100" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold">1. Input & Files Hub</text>
+                                <text x="120" y="125" text-anchor="middle" fill="#c7d2fe" font-size="11">PYQs, Unit Notes & VVI Topics</text>
+                            </g>
+
+                            <g onclick="selectDiagramNode('ai')" class="cursor-pointer">
+                                <rect x="320" y="40" width="220" height="140" rx="16" fill="url(#g2)" stroke="#2dd4bf" stroke-width="2"/>
+                                <text x="430" y="100" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold">2. AI Active Recall Engine</text>
+                                <text x="430" y="125" text-anchor="middle" fill="#99f6e4" font-size="11">Flashcards & Quiz Builder</text>
+                            </g>
+
+                            <g onclick="selectDiagramNode('output')" class="cursor-pointer">
+                                <rect x="640" y="40" width="220" height="140" rx="16" fill="url(#g3)" stroke="#c084fc" stroke-width="2"/>
+                                <text x="750" y="100" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold">3. Retention & Focus Room</text>
+                                <text x="750" y="125" text-anchor="middle" fill="#f3e8ff" font-size="11">Spaced Repetition & Pomodoro</text>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div id="diagram-inspector" class="mt-4 p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs">
+                        <p class="text-slate-300 font-semibold">Pipeline 1: Ingests AKTU branch syllabus, handwritten PDF notes, PYQs, and VVI questions.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== SCREEN 2: AKTU 1ST YEAR RESOURCE & ATTACHMENTS HUB ==================== -->
+            <section id="tab-aktu-hub" class="tab-content hidden space-y-6">
+                <!-- Header Banner -->
+                <div class="glass-card rounded-2xl p-6 border border-slate-800">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-white font-outfit">AKTU 1st Year Resource & Study Materials Hub</h2>
+                            <p class="text-xs text-slate-400 mt-1">Branch-wise Previous Year Questions (PYQs), Unit Notes, MCQ Question Banks & High-Frequency VVI Topics.</p>
+                        </div>
+                        <button onclick="openUploadModal()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-accent-purple hover:opacity-95 text-white font-bold text-xs shadow-lg flex items-center gap-2 whitespace-nowrap self-start md:self-auto">
+                            <i class="fa-solid fa-paperclip"></i> Attach New Notes / PYQ File
+                        </button>
+                    </div>
+
+                    <!-- Branch Selection Tabs -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-6">
+                        <button onclick="switchBranch('CSE/IT/AI')" id="branch-tab-CSE" class="branch-btn py-3 px-4 rounded-xl text-xs font-bold bg-brand-600 text-white shadow-md flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-laptop-code"></i> CSE / IT / AI-ML
+                        </button>
+                        <button onclick="switchBranch('ECE/EEE')" id="branch-tab-ECE" class="branch-btn py-3 px-4 rounded-xl text-xs font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-microchip"></i> ECE / EEE / EE
+                        </button>
+                        <button onclick="switchBranch('ME')" id="branch-tab-ME" class="branch-btn py-3 px-4 rounded-xl text-xs font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-gears"></i> Mechanical (ME)
+                        </button>
+                        <button onclick="switchBranch('CE')" id="branch-tab-CE" class="branch-btn py-3 px-4 rounded-xl text-xs font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-building-columns"></i> Civil Eng (CE)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Category Filtering Tabs -->
+                <div class="flex items-center gap-2 overflow-x-auto pb-1">
+                    <button onclick="filterResourceCategory('all')" id="cat-btn-all" class="cat-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 text-white border border-slate-700 whitespace-nowrap">All Files</button>
+                    <button onclick="filterResourceCategory('PYQ')" id="cat-btn-PYQ" class="cat-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 whitespace-nowrap"><i class="fa-solid fa-file-pdf text-accent-rose mr-1"></i> PYQs with Solutions</button>
+                    <button onclick="filterResourceCategory('Notes')" id="cat-btn-Notes" class="cat-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 whitespace-nowrap"><i class="fa-solid fa-book-open text-brand-400 mr-1"></i> Unit Notes & Handouts</button>
+                    <button onclick="filterResourceCategory('MCQ')" id="cat-btn-MCQ" class="cat-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 whitespace-nowrap"><i class="fa-solid fa-list-check text-accent-teal mr-1"></i> MCQ Question Banks</button>
+                    <button onclick="filterResourceCategory('VVI')" id="cat-btn-VVI" class="cat-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 whitespace-nowrap"><i class="fa-solid fa-star text-accent-amber mr-1"></i> VVI Topics (High Weightage)</button>
+                </div>
+
+                <!-- Dynamic Resource Cards Grid -->
+                <div id="resource-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Resource items injected by JS -->
+                </div>
+
+                <!-- Attach / Upload Custom Notes Dropzone Area -->
+                <div class="glass-card rounded-2xl p-6 border border-slate-800">
+                    <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-cloud-arrow-up text-brand-400"></i> Direct File Attachment Dropzone
+                    </h3>
+                    <p class="text-xs text-slate-400 mb-4">Attach your own syllabus notes, college assignment PDFs, or past paper scans directly to synthesize flashcards.</p>
+
+                    <div id="drop-zone" onclick="document.getElementById('file-upload-input').click()" class="border-2 border-dashed border-slate-700 hover:border-brand-500 rounded-2xl p-8 text-center cursor-pointer bg-slate-900/50 hover:bg-slate-900 transition flex flex-col items-center justify-center gap-2">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-file-lines"></i>
+                        </div>
+                        <p class="text-xs font-bold text-white">Click or Drag & Drop PDF / Word / Notes Images here</p>
+                        <p class="text-[10px] text-slate-500">Supports PDF, DOCX, TXT, PNG up to 25MB</p>
+                        <input type="file" id="file-upload-input" onchange="handleFileSelect(event)" class="hidden" accept=".pdf,.doc,.docx,.txt,.png,.jpg">
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== SCREEN 3: ACTIVE RECALL & QUIZ ENGINE ==================== -->
+            <section id="tab-recall" class="tab-content hidden space-y-6">
+                <div class="glass-card rounded-2xl p-6 border border-slate-800">
+                    <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2 font-outfit">
+                        <i class="fa-solid fa-wand-magic-sparkles text-brand-400"></i> AI Active Recall Question Synthesizer
+                    </h3>
+                    <p class="text-xs text-slate-400 mb-3">Paste unit text, PYQ question statements, or attached note summary to auto-generate 3D interactive flashcards.</p>
+                    <textarea id="notes-input" rows="3" placeholder="Paste your AKTU Unit notes (e.g. C Programming pointers, Engineering Physics lasers, Matrices & Differential Calculus)..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-brand-500"></textarea>
+                    <button onclick="generateCustomCards()" class="mt-2 px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center gap-2 shadow-md">
+                        <i class="fa-solid fa-brain"></i> Synthesize Active Recall Prompts
+                    </button>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-lg font-bold text-white font-outfit">Interactive Active Recall Practice</h2>
+                        <p class="text-xs text-slate-400">Test active memory retention with 3D flip cards and self-grading intervals.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="toggleRecallMode('cards')" id="btn-mode-cards" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-brand-600 text-white">3D Flashcards</button>
+                        <button onclick="toggleRecallMode('quiz')" id="btn-mode-quiz" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-slate-400">Self Assessment Quiz</button>
+                    </div>
+                </div>
+
+                <div id="recall-cards-container" class="max-w-xl mx-auto space-y-4">
+                    <div id="flashcard" onclick="flipCard()" class="perspective h-72 w-full cursor-pointer">
+                        <div id="card-inner" class="relative w-full h-full rounded-2xl glass-card border border-brand-500/30 transition-transform duration-500 transform-style-3d p-6 flex flex-col justify-between text-center">
+                            <!-- Card Front -->
+                            <div class="absolute inset-0 backface-hidden p-6 flex flex-col justify-between items-center rounded-2xl bg-slate-900">
+                                <span class="text-[10px] px-2.5 py-1 rounded-full bg-brand-500/20 text-brand-300 font-bold" id="card-topic">Programming for Problem Solving (PPS)</span>
+                                <h3 id="card-question" class="text-base sm:text-lg font-bold text-white my-auto px-4">What is the difference between call by value and call by reference in C?</h3>
+                                <p class="text-[11px] text-slate-500"><i class="fa-solid fa-rotate"></i> Click card to reveal answer</p>
+                            </div>
+                            <!-- Card Back -->
+                            <div class="absolute inset-0 backface-hidden rotate-y-180 p-6 flex flex-col justify-between items-center rounded-2xl bg-slate-900 border border-accent-teal/40">
+                                <span class="text-[10px] px-2.5 py-1 rounded-full bg-accent-teal/20 text-accent-teal font-bold">Solution Key</span>
+                                <h3 id="card-answer" class="text-sm font-bold text-white my-auto px-2">Call by value passes copies of variables; Call by reference passes memory addresses using pointers.</h3>
+                                <p class="text-[11px] text-slate-400" id="card-desc">AKTU 2023-24 Semester 1 PYQ 10-Mark Question.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Spaced Repetition Buttons -->
+                    <div class="flex items-center justify-center gap-2">
+                        <button onclick="nextCard('hard')" class="flex-1 py-2.5 rounded-xl bg-accent-rose/10 border border-accent-rose/30 text-accent-rose font-bold text-xs hover:bg-accent-rose/20 transition">Hard (Review Soon)</button>
+                        <button onclick="nextCard('good')" class="flex-1 py-2.5 rounded-xl bg-accent-amber/10 border border-accent-amber/30 text-accent-amber font-bold text-xs hover:bg-accent-amber/20 transition">Good (Normal)</button>
+                        <button onclick="nextCard('easy')" class="flex-1 py-2.5 rounded-xl bg-accent-teal/10 border border-accent-teal/30 text-accent-teal font-bold text-xs hover:bg-accent-teal/20 transition">Easy (Mastered)</button>
+                    </div>
+                </div>
+
+                <!-- Self Assessment Quiz Interface -->
+                <div id="recall-quiz-container" class="hidden max-w-xl mx-auto glass-card p-6 rounded-2xl border border-slate-800">
+                    <span class="text-[10px] uppercase font-bold tracking-wider text-accent-purple">AKTU MCQ Practice Engine</span>
+                    <h3 class="text-base font-bold text-white my-3" id="quiz-question">In Engineering Physics, what principle is utilized in Fiber Optic Communication?</h3>
+                    <div id="quiz-options" class="space-y-2 my-4">
+                        <!-- Options injected via JS -->
+                    </div>
+                    <p id="quiz-feedback" class="text-xs font-semibold mt-2"></p>
+                </div>
+            </section>
+
+            <!-- ==================== SCREEN 4: TOPIC ROADMAP & SYLLABUS ==================== -->
+            <section id="tab-roadmap" class="tab-content hidden space-y-6">
+                <div class="glass-card rounded-2xl p-6 border border-slate-800">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                        <div>
+                            <h2 class="text-xl font-bold text-white font-outfit">AKTU 1st Year Syllabus Progression Tree</h2>
+                            <p class="text-xs text-slate-400">Track unit readiness and high-frequency exam topics across 1st-year subjects.</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-brand-500/20 text-brand-300 border border-brand-500/30 text-xs font-bold self-start sm:self-auto" id="roadmap-branch-badge">
+                            CSE / IT • Semester 1
+                        </span>
+                    </div>
+
+                    <div id="roadmap-units-list" class="space-y-4">
+                        <!-- Syllabus Units injected via JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== SCREEN 5: FOCUS ROOM (POMODORO & MINDFULNESS) ==================== -->
+            <section id="tab-pomodoro" class="tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Pomodoro Focus Timer -->
+                    <div class="glass-card rounded-2xl p-6 border border-slate-800 text-center flex flex-col justify-between space-y-4">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-brand-400 font-outfit">Pomodoro Focus Session</span>
+                        <div class="my-4">
+                            <h2 id="timer-display" class="text-6xl font-black text-white font-outfit tracking-tight">25:00</h2>
+                            <p id="timer-status" class="text-xs text-slate-400 mt-2">Ready to enter deep study mode</p>
+                        </div>
+                        <div class="flex items-center justify-center gap-3">
+                            <button id="pomo-toggle-btn" onclick="toggleTimer()" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs shadow-lg transition">Start Session</button>
+                            <button onclick="resetTimer()" class="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition">Reset</button>
+                        </div>
+                    </div>
+
+                    <!-- Ambient Sound Machine & Guided Breathing -->
+                    <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-5">
+                        <div>
+                            <h3 class="text-base font-bold text-white mb-1 font-outfit"><i class="fa-solid fa-spa text-accent-rose mr-2"></i> Guided Micro-Breathing Coach</h3>
+                            <p class="text-xs text-slate-400 mb-3">Lower pre-exam jitters and study burnout.</p>
+                            <div id="breathing-circle" class="w-20 h-20 rounded-full bg-accent-rose/20 border-2 border-accent-rose mx-auto flex items-center justify-center text-xs font-bold text-accent-rose transition-all duration-3000">
+                                Breathe
+                            </div>
+                            <button onclick="runBreathingRoutine()" class="w-full mt-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition">Start 1-Min Relaxation Exercise</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Embedded Web-Audio & Focus Synthesizer -->
+                <div class="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800 space-y-5">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                        <div>
+                            <h3 class="text-base font-bold text-white font-outfit"><i class="fa-solid fa-headphones text-accent-teal mr-2"></i> Embedded Web-Audio &amp; Focus Synthesizer</h3>
+                            <p class="text-xs text-slate-400 mt-1">Real-time generated sound (no audio files, works offline). Mix layers to mask hostel noise and stay in the zone.</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-volume-low text-slate-500 text-xs"></i>
+                            <input type="range" id="synth-master" min="0" max="100" value="70" aria-label="Master volume" oninput="Synth.setMaster(this.value/100)" class="w-32 accent-teal-500">
+                            <i class="fa-solid fa-volume-high text-slate-500 text-xs"></i>
+                            <button onclick="Synth.stopAll(true)" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition"><i class="fa-solid fa-stop mr-1"></i> Stop All</button>
+                        </div>
+                    </div>
+
+                    <canvas id="synth-viz" width="800" height="64" class="w-full h-16 rounded-xl bg-slate-900/80 border border-slate-800"></canvas>
+                    <p id="synth-status" class="text-[11px] text-slate-400 -mt-2">Silent. Pick a preset or switch on a layer.</p>
+
+                    <div>
+                        <p class="text-[10px] uppercase tracking-wider font-bold text-slate-500 mb-2">Quick presets</p>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                            <button onclick="Synth.preset('focus')" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-accent-teal text-xs font-semibold text-slate-200 transition"><i class="fa-solid fa-bullseye text-accent-teal mr-1"></i> Deep Focus</button>
+                            <button onclick="Synth.preset('night')" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-accent-purple text-xs font-semibold text-slate-200 transition"><i class="fa-solid fa-moon text-accent-purple mr-1"></i> Exam Night</button>
+                            <button onclick="Synth.preset('hostel')" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-accent-amber text-xs font-semibold text-slate-200 transition col-span-2 sm:col-span-1"><i class="fa-solid fa-building text-accent-amber mr-1"></i> Hostel Noise Mask</button>
+                        </div>
+                    </div>
+
+                    <div id="synth-layers" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-3 pt-4 border-t border-slate-800 text-xs">
+                        <label class="flex items-center gap-2 text-slate-300 cursor-pointer">
+                            <input type="checkbox" id="synth-sync" class="accent-teal-500 w-4 h-4">
+                            Sync with Pomodoro (auto-play on start, fade out on pause/reset)
+                        </label>
+                        <label class="flex items-center gap-2 text-slate-300 cursor-pointer">
+                            <input type="checkbox" id="synth-voice" checked class="accent-teal-500 w-4 h-4">
+                            <i class="fa-solid fa-microphone-lines text-accent-teal"></i> Voice reminders (English + हिन्दी)
+                        </label>
+                        <div class="flex items-center gap-2 sm:ml-auto">
+                            <span class="text-slate-400">Sleep timer</span>
+                            <select id="synth-sleep" onchange="Synth.setSleep(this.value)" class="bg-slate-900 border border-slate-800 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-brand-500">
+                                <option value="0">Off</option>
+                                <option value="15">15 min</option>
+                                <option value="25">25 min</option>
+                                <option value="45">45 min</option>
+                                <option value="60">60 min</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800">
+                        <p class="text-[10px] uppercase tracking-wider font-bold text-slate-500 mb-2"><i class="fa-solid fa-lightbulb text-accent-amber mr-1"></i> When to use what</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div class="p-3.5 rounded-xl bg-slate-900/70 border border-slate-800 flex flex-col justify-between gap-3">
+                                <div>
+                                    <p class="text-xs font-bold text-white"><i class="fa-solid fa-building text-accent-amber mr-1.5"></i> Hostel Noise Mask</p>
+                                    <p class="text-[11px] text-slate-400 mt-1">Use it when there is chatter around you. Mixes white noise, rain and brown noise to cover voices.</p>
+                                </div>
+                                <button onclick="Synth.preset('hostel')" class="w-full py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-slate-200 transition"><i class="fa-solid fa-play mr-1"></i> Try it</button>
+                            </div>
+                            <div class="p-3.5 rounded-xl bg-slate-900/70 border border-slate-800 flex flex-col justify-between gap-3">
+                                <div>
+                                    <p class="text-xs font-bold text-white"><i class="fa-solid fa-moon text-accent-purple mr-1.5"></i> Exam Night</p>
+                                    <p class="text-[11px] text-slate-400 mt-1">For late revision. Warm drone, soft rain and a 6 Hz theta beat (headphones needed). Reminds you in English + Hindi to drink water, stretch and continue.</p>
+                                </div>
+                                <button onclick="Synth.preset('night')" class="w-full py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-slate-200 transition"><i class="fa-solid fa-play mr-1"></i> Try it</button>
+                            </div>
+                            <div class="p-3.5 rounded-xl bg-slate-900/70 border border-slate-800 flex flex-col justify-between gap-3">
+                                <div>
+                                    <p class="text-xs font-bold text-white"><i class="fa-solid fa-hourglass-half text-accent-teal mr-1.5"></i> 45-min Sleep Timer</p>
+                                    <p class="text-[11px] text-slate-400 mt-1">Studying with sound on and don't want it running all night? Set the sleep timer to 45 minutes and it fades out by itself.</p>
+                                </div>
+                                <button onclick="document.getElementById('synth-sleep').value='45'; Synth.setSleep(45)" class="w-full py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-slate-200 transition"><i class="fa-solid fa-clock mr-1"></i> Set 45 min</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-[10px] text-slate-500"><i class="fa-solid fa-circle-info mr-1"></i> Binaural beats need stereo headphones. Keep volume comfortable; this is a study aid, not a medical treatment.</p>
+                </div>
+            </section>
+
+            <!-- ==================== SCREEN 6: RETENTION ANALYTICS MATRIX ==================== -->
+            <section id="tab-analytics" class="tab-content hidden space-y-6">
+                <div class="glass-card rounded-2xl p-6 border border-slate-800">
+                    <h2 class="text-xl font-bold text-white mb-2 font-outfit">Retention Analytics Matrix</h2>
+                    <p class="text-xs text-slate-400 mb-6">Memory curve calculations based on active recall practice.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-center">
+                            <p class="text-xs text-slate-400">AKTU Syllabus Mastery</p>
+                            <p class="text-3xl font-extrabold text-brand-400 mt-1">84%</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-center">
+                            <p class="text-xs text-slate-400">PYQs & Prompts Answered</p>
+                            <p class="text-3xl font-extrabold text-accent-teal mt-1">42 / 50</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-center">
+                            <p class="text-xs text-slate-400">Forgetting Decay</p>
+                            <p class="text-3xl font-extrabold text-accent-rose mt-1">6% (Optimal)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== SCREEN 7: STUDENT PROFILE MANAGEMENT ==================== -->
+            <section id="tab-profile" class="tab-content hidden space-y-6">
+                <div class="glass-card rounded-2xl p-6 border border-slate-800 max-w-xl mx-auto space-y-6">
+                    <div class="flex items-center gap-4 pb-4 border-b border-slate-800">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-600 to-accent-purple flex items-center justify-center text-white text-xl font-black shadow-lg" id="profile-big-initials">
+                            RS
+                        </div>
+                        <div>
+                            <h2 class="text-lg font-bold text-white" id="profile-display-fullname">Rahul Sharma</h2>
+                            <p class="text-xs text-slate-400" id="profile-display-email">rahul.sharma@aktu.ac.in</p>
+                            <p class="text-xs text-accent-teal font-medium" id="profile-display-mobile">+91 9876543210</p>
+                            <div class="flex gap-1 mt-1">
+                                <span class="px-2.5 py-0.5 rounded-full bg-brand-500/20 text-brand-300 border border-brand-500/30 text-[10px] font-bold" id="profile-display-branch">
+                                    CSE / IT / AI-ML
+                                </span>
+                                <span class="px-2.5 py-0.5 rounded-full bg-accent-purple/20 text-accent-purple border border-accent-purple/30 text-[10px] font-bold" id="profile-display-sem">
+                                    Semester 1
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 text-xs">
+                        <div>
+                            <label class="block text-slate-400 mb-1">Update Full Name</label>
+                            <input type="text" id="edit-profile-name" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-brand-500">
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-slate-400 mb-1">Update Branch</label>
+                                <select id="edit-profile-branch" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-brand-500">
+                                    <option value="CSE/IT/AI">CSE / IT / AI-ML</option>
+                                    <option value="ECE/EEE">ECE / EEE / EE</option>
+                                    <option value="ME">Mechanical (ME)</option>
+                                    <option value="CE">Civil Eng (CE)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-slate-400 mb-1">Update Semester</label>
+                                <select id="edit-profile-sem" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-brand-500">
+                                    <option value="Semester 1">Semester 1</option>
+                                    <option value="Semester 2">Semester 2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button onclick="saveProfileChanges()" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold transition">
+                            Save Profile Changes
+                        </button>
+                    </div>
+                </div>
+            </section>
+            <!-- ==================== REMINDERS ==================== -->
+            <section id="tab-reminders" class="tab-content hidden space-y-6">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-white font-outfit">Study Reminders</h2>
+                    <p class="text-xs text-slate-400 mt-1">Pick a date and time. You get an on-screen alert, a voice reminder, a phone/PC notification and (optionally) an email.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                    <!-- Add form -->
+                    <div class="lg:col-span-2 glass-card rounded-3xl p-5 space-y-4 h-fit">
+                        <h3 class="text-sm font-bold text-white"><i class="fa-solid fa-bell-concierge text-accent-amber mr-2"></i>New reminder</h3>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">What should I remind you about?</label>
+                            <input id="rem-title" type="text" maxlength="80" placeholder="e.g. Revise Chemistry Unit 2" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Note (optional)</label>
+                            <input id="rem-note" type="text" maxlength="140" placeholder="e.g. Solve 10 numericals" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Date and time</label>
+                            <input id="rem-when" type="datetime-local" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500">
+                            <div class="flex flex-wrap gap-1.5 mt-2">
+                                <button type="button" onclick="Reminders.quick(10)" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-200 font-semibold">+10 min</button>
+                                <button type="button" onclick="Reminders.quick(60)" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-200 font-semibold">+1 hour</button>
+                                <button type="button" onclick="Reminders.quick('tonight')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-200 font-semibold">Tonight 8 PM</button>
+                                <button type="button" onclick="Reminders.quick('tomorrow')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-200 font-semibold">Tomorrow 7 AM</button>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Repeat</label>
+                            <select id="rem-repeat" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-brand-500">
+                                <option value="none">Only once</option>
+                                <option value="daily">Every day</option>
+                                <option value="weekly">Every week</option>
+                            </select>
+                        </div>
+                        <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer">
+                            <input id="rem-email" type="checkbox" checked class="accent-teal-500 w-4 h-4"> Also send me an email
+                        </label>
+                        <p id="rem-email-status" class="text-[10px] text-slate-500"></p>
+                        <button onclick="Reminders.add()" class="w-full py-3 rounded-xl bg-gradient-to-r from-brand-600 to-accent-purple text-white font-bold text-xs shadow-lg shadow-brand-500/20"><i class="fa-solid fa-plus mr-1"></i> Add reminder</button>
+                        <button id="rem-notif-btn" onclick="Reminders.askPermission()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs hidden"><i class="fa-solid fa-bell mr-1"></i> Allow notifications</button>
+                    </div>
+
+                    <!-- List -->
+                    <div class="lg:col-span-3 space-y-4">
+                        <div class="glass-card rounded-3xl p-5">
+                            <h3 class="text-sm font-bold text-white mb-3"><i class="fa-solid fa-hourglass-half text-brand-400 mr-2"></i>Upcoming</h3>
+                            <div id="rem-upcoming" class="space-y-2"></div>
+                        </div>
+                        <div class="glass-card rounded-3xl p-5">
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-sm font-bold text-white"><i class="fa-solid fa-clock-rotate-left text-slate-400 mr-2"></i>Done</h3>
+                                <button onclick="Reminders.clearDone()" class="text-[11px] text-slate-400 hover:text-white">Clear</button>
+                            </div>
+                            <div id="rem-done" class="space-y-2"></div>
+                        </div>
+                        <p class="text-[11px] text-slate-500 leading-relaxed"><i class="fa-solid fa-circle-info mr-1"></i>Reminders ring while StudyPulse is open in a browser tab (a background tab is fine). If the page is closed at the time, the reminder shows up as soon as you open it again.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ==================== FILE PREVIEW MODAL ==================== -->
+    <div id="file-preview-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+        <div class="glass-card max-w-2xl w-full rounded-2xl border border-slate-800 p-6 space-y-4 relative">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                    <span id="modal-file-icon" class="text-xl text-accent-rose"><i class="fa-solid fa-file-pdf"></i></span>
+                    <h3 id="modal-file-title" class="text-sm font-bold text-white">AKTU Engineering Physics PYQ 2023-24.pdf</h3>
+                </div>
+                <button onclick="closePreviewModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs space-y-3 max-h-80 overflow-y-auto" id="modal-file-body">
+                <!-- Preview Content Injected -->
+            </div>
+            <div class="flex items-center justify-end gap-2 pt-2">
+                <button onclick="closePreviewModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 font-semibold">Close</button>
+                <button onclick="simulateDownload()" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-xs text-white font-bold flex items-center gap-1.5">
+                    <i class="fa-solid fa-download"></i> Download File
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ==================== STATE MANAGEMENT ==================== */
+        const DEFAULT_GUEST = {
+            name: 'Rahul Sharma',
+            email: 'rahul.sharma@aktu.ac.in',
+            mobile: '+91 9876543210',
+            branch: 'CSE/IT/AI',
+            sem: 'Semester 1',
+            isLoggedIn: false
+        };
+
+        const state = {
+            currentUser: null,
+            authMode: 'signup',
+            otpMobile: '',
+            selectedBranch: 'CSE/IT/AI',
+            selectedCategory: 'all',
+            currentTab: 'dashboard',
+            
+            // Resource Data Repository for AKTU 1st Year
+            resources: [
+                { id: '1', title: 'PPS / C Programming PYQ (2022-24)', branch: 'CSE/IT/AI', cat: 'PYQ', type: 'PDF', size: '2.4 MB', desc: 'AKTU Semester 1 Question Paper with complete solution key for 10-mark questions.' },
+                { id: '2', title: 'Engineering Mathematics-I Unit 1-5 Handwritten Notes', branch: 'CSE/IT/AI', cat: 'Notes', type: 'PDF', size: '4.8 MB', desc: 'Matrices, Differential Calculus & Partial Differentiation handwritten notes.' },
+                { id: '3', title: 'Engineering Physics Unit-wise VVI Questions List', branch: 'CSE/IT/AI', cat: 'VVI', type: 'DOCX', size: '1.1 MB', desc: 'High-frequency 2-mark and 10-mark questions for Lasers, Fiber Optics & Quantum Physics.' },
+                { id: '4', title: 'Basic Electrical Engg Sessional MCQ Question Bank', branch: 'ECE/EEE', cat: 'MCQ', type: 'PDF', size: '1.8 MB', desc: '150+ solved MCQs for AC Circuits, Transformers & DC Machines.' },
+                { id: '5', title: 'Engineering Chemistry PYQs with Answers (2021-23)', branch: 'ECE/EEE', cat: 'PYQ', type: 'PDF', size: '3.1 MB', desc: 'Spectroscopic techniques, Water Treatment & Polymers solved papers.' },
+                { id: '6', title: 'Engineering Mechanics Handwritten Notes & Solved Numericals', branch: 'ME', cat: 'Notes', type: 'PDF', size: '5.2 MB', desc: 'Statics, Trusses, Friction & Kinetics numerical derivations.' },
+                { id: '7', title: 'Basic Mechanical Engg VVI Topics & Diagram Summaries', branch: 'ME', cat: 'VVI', type: 'DOCX', size: '1.4 MB', desc: 'IC Engines, Thermodynamics 1st & 2nd law high-weightage topics.' },
+                { id: '8', title: 'Basic Civil Engg & Mechanics PYQ Paper 2023-24', branch: 'CE', cat: 'PYQ', type: 'PDF', size: '2.2 MB', desc: 'Surveying, Building Materials & Mechanics past year solved paper.' }
+            ],
+
+            flashcards: [
+                { topic: 'Programming for Problem Solving (PPS)', q: 'What is the difference between call by value and call by reference in C?', a: 'Call by value passes copies of variables; Call by reference passes memory addresses using pointers.', desc: 'AKTU Semester 1 PYQ 10-Mark Question.' },
+                { topic: 'Engineering Physics', q: 'What is the principle behind Optical Fiber Communication?', a: 'Total Internal Reflection (TIR) inside the core region.', desc: 'AKTU High-Frequency VVI Topic.' },
+                { topic: 'Engineering Mathematics-I', q: 'State Cayley-Hamilton Theorem.', a: 'Every square matrix satisfies its own characteristic equation |A - λI| = 0.', desc: 'Used to calculate inverse & higher powers of matrices.' }
+            ],
+
+            cardIdx: 0,
+            timerMinutes: 25,
+            timerSeconds: 0,
+            timerRunning: false,
+            timerId: null,
+            audioCtx: null,
+            audioOsc: null
+        };
+
+        /* ==================== INITIALIZATION & AUTH ==================== */
+        function initApp() {
+            setupOTPInputFocus();
+            setupDragAndDrop();
+            const stored = localStorage.getItem('studypulse_aktu_user');
+            if (stored) {
+                try { state.currentUser = JSON.parse(stored); } catch(e) { state.currentUser = null; }
+            }
+
+            if (state.currentUser && state.currentUser.isLoggedIn) {
+                showWorkspace();
+            } else {
+                showAuthScreen();
+            }
+        }
+
+        function showAuthScreen() {
+            document.getElementById('screen-auth').classList.remove('hidden');
+            document.getElementById('app-workspace').classList.add('hidden');
+        }
+
+        function showWorkspace() {
+            document.getElementById('screen-auth').classList.add('hidden');
+            document.getElementById('app-workspace').classList.remove('hidden');
+            if(state.currentUser) state.selectedBranch = state.currentUser.branch || 'CSE/IT/AI';
+            updateUserUI();
+            renderResourcesGrid();
+            renderRoadmap();
+            renderQuiz();
+            selectDiagramNode('input');
+        }
+
+        function switchAuthMode(mode) {
+            state.authMode = mode;
+            const signupTab = document.getElementById('screen-tab-signup');
+            const loginTab = document.getElementById('screen-tab-login');
+            const signupContainer = document.getElementById('signup-flow-container');
+            const loginContainer = document.getElementById('login-form-container');
+
+            if (mode === 'signup') {
+                signupTab.className = "py-2.5 text-xs font-bold rounded-xl text-white bg-brand-600 transition shadow";
+                loginTab.className = "py-2.5 text-xs font-bold rounded-xl text-slate-400 hover:text-white transition";
+                signupContainer.classList.remove('hidden');
+                loginContainer.classList.add('hidden');
+            } else {
+                loginTab.className = "py-2.5 text-xs font-bold rounded-xl text-white bg-brand-600 transition shadow";
+                signupTab.className = "py-2.5 text-xs font-bold rounded-xl text-slate-400 hover:text-white transition";
+                loginContainer.classList.remove('hidden');
+                signupContainer.classList.add('hidden');
+            }
+        }
+
+        /* OTP Steps */
+        function sendOTP() {
+            const mobileInput = document.getElementById('reg-mobile-input').value.trim();
+            if (mobileInput.length !== 10 || isNaN(mobileInput)) {
+                alert('Please enter a valid 10-digit Indian Mobile Number.');
+                return;
+            }
+            state.otpMobile = '+91 ' + mobileInput;
+            document.getElementById('display-sent-mobile').innerText = state.otpMobile;
+            document.getElementById('otp-step-1').classList.add('hidden');
+            document.getElementById('otp-step-2').classList.remove('hidden');
+            showToast(`SMS Verification Code 123456 sent to ${state.otpMobile}!`);
+        }
+
+        function resetOTPStep() {
+            document.getElementById('otp-step-2').classList.add('hidden');
+            document.getElementById('otp-step-1').classList.remove('hidden');
+        }
+
+        function setupOTPInputFocus() {
+            const wrapper = document.getElementById('otp-inputs-wrapper');
+            if(!wrapper) return;
+            const inputs = wrapper.querySelectorAll('input');
+            inputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    if (e.target.value.length === 1 && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                });
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+            });
+        }
+
+        function autoFillDemoOTP() {
+            const inputs = document.querySelectorAll('#otp-inputs-wrapper input');
+            const code = '123456';
+            inputs.forEach((inp, i) => inp.value = code[i]);
+        }
+
+        function verifyOTP() {
+            const inputs = document.querySelectorAll('#otp-inputs-wrapper input');
+            let entered = '';
+            inputs.forEach(inp => entered += inp.value);
+
+            if (entered === '123456' || entered.length === 6) {
+                document.getElementById('otp-step-2').classList.add('hidden');
+                document.getElementById('otp-step-3').classList.remove('hidden');
+                showToast("Mobile verified successfully!");
+            } else {
+                alert("Invalid OTP Code! Enter '123456' or click Auto-Fill.");
+            }
+        }
+
+        function completeRegistration(e) {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const branch = document.getElementById('reg-branch').value;
+            const sem = document.getElementById('reg-sem').value;
+
+            state.currentUser = {
+                name: name,
+                email: email,
+                mobile: state.otpMobile || '+91 9876543210',
+                branch: branch,
+                sem: sem,
+                isLoggedIn: true
+            };
+
+            localStorage.setItem('studypulse_aktu_user', JSON.stringify(state.currentUser));
+            showWorkspace();
+            showToast(`Registration complete! Welcome ${name}.`);
+        }
+
+        function handleLoginSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('login-identifier').value.trim();
+            state.currentUser = {
+                name: id.includes('@') ? id.split('@')[0] : 'Rahul Sharma',
+                email: id.includes('@') ? id : 'rahul.sharma@aktu.ac.in',
+                mobile: isNaN(id) ? '+91 9876543210' : '+91 ' + id,
+                branch: 'CSE/IT/AI',
+                sem: 'Semester 1',
+                isLoggedIn: true
+            };
+            localStorage.setItem('studypulse_aktu_user', JSON.stringify(state.currentUser));
+            showWorkspace();
+            showToast("Logged in successfully!");
+        }
+
+        function loginAsGuest() {
+            state.currentUser = { ...DEFAULT_GUEST, isLoggedIn: true };
+            localStorage.setItem('studypulse_aktu_user', JSON.stringify(state.currentUser));
+            showWorkspace();
+            showToast("Signed in as Demo Guest Student!");
+        }
+
+        function handleLogout() {
+            if (state.currentUser) state.currentUser.isLoggedIn = false;
+            localStorage.removeItem('studypulse_aktu_user');
+            document.getElementById('profile-dropdown').classList.add('hidden');
+            showAuthScreen();
+            showToast("Signed out.");
+        }
+
+        function toggleProfileMenu() {
+            document.getElementById('profile-dropdown').classList.toggle('hidden');
+        }
+
+        function getInitials(name) {
+            if (!name) return 'RS';
+            const parts = name.trim().split(' ');
+            return parts.length >= 2 ? (parts[0][0] + parts[1][0]).toUpperCase() : name.slice(0, 2).toUpperCase();
+        }
+
+        function updateUserUI() {
+            if (!state.currentUser) return;
+            const u = state.currentUser;
+            const initials = getInitials(u.name);
+            const firstName = u.name.split(' ')[0];
+
+            document.getElementById('nav-user-initials').innerText = initials;
+            document.getElementById('nav-user-firstname').innerText = firstName;
+            document.getElementById('dropdown-fullname').innerText = u.name;
+            document.getElementById('dropdown-email').innerText = u.email;
+            document.getElementById('dropdown-mobile').innerText = u.mobile || '+91 9876543210';
+            document.getElementById('dropdown-branch').innerText = u.branch;
+            document.getElementById('dropdown-sem').innerText = u.sem;
+
+            document.getElementById('dash-badge-user').innerText = `OTP Verified: ${u.mobile || '+91 9876543210'}`;
+            document.getElementById('dash-user-firstname').innerText = firstName;
+            document.getElementById('dash-user-branch').innerText = u.branch;
+            document.getElementById('dash-user-sem').innerText = u.sem;
+            document.getElementById('dash-card-branch-title').innerText = `${u.branch} • ${u.sem}`;
+
+            document.getElementById('profile-big-initials').innerText = initials;
+            document.getElementById('profile-display-fullname').innerText = u.name;
+            document.getElementById('profile-display-email').innerText = u.email;
+            document.getElementById('profile-display-mobile').innerText = u.mobile || '+91 9876543210';
+            document.getElementById('profile-display-branch').innerText = u.branch;
+            document.getElementById('profile-display-sem').innerText = u.sem;
+            document.getElementById('edit-profile-name').value = u.name;
+            document.getElementById('edit-profile-branch').value = u.branch;
+            document.getElementById('edit-profile-sem').value = u.sem;
+        }
+
+        function saveProfileChanges() {
+            state.currentUser.name = document.getElementById('edit-profile-name').value;
+            state.currentUser.branch = document.getElementById('edit-profile-branch').value;
+            state.currentUser.sem = document.getElementById('edit-profile-sem').value;
+            state.selectedBranch = state.currentUser.branch;
+            localStorage.setItem('studypulse_aktu_user', JSON.stringify(state.currentUser));
+            updateUserUI();
+            renderResourcesGrid();
+            renderRoadmap();
+            showToast("Profile settings saved successfully!");
+        }
+
+        /* ==================== WORKSPACE NAVIGATION ==================== */
+        function switchTab(tabId) {
+            state.currentTab = tabId;
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById(`tab-${tabId}`);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.className = 'nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white';
+            });
+            const activeBtn = document.getElementById(`nav-${tabId}`);
+            if (activeBtn) activeBtn.className = 'nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-brand-600 shadow-md';
+
+            document.getElementById('profile-dropdown').classList.add('hidden');
+        }
+
+        /* ==================== RESOURCE HUB LOGIC ==================== */
+        function switchBranch(branch) {
+            state.selectedBranch = branch;
+            document.querySelectorAll('.branch-btn').forEach(btn => {
+                btn.className = "branch-btn py-3 px-4 rounded-xl text-xs font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 flex items-center justify-center gap-2";
+            });
+            const key = branch.split('/')[0];
+            const active = document.getElementById(`branch-tab-${key}`);
+            if (active) active.className = "branch-btn py-3 px-4 rounded-xl text-xs font-bold bg-brand-600 text-white shadow-md flex items-center justify-center gap-2";
+
+            renderResourcesGrid();
+            renderRoadmap();
+        }
+
+        function filterResourceCategory(cat) {
+            state.selectedCategory = cat;
+            document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+                btn.className = "cat-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 whitespace-nowrap";
+            });
+            const active = document.getElementById(`cat-btn-${cat}`);
+            if (active) active.className = "cat-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 text-white border border-slate-700 whitespace-nowrap";
+
+            renderResourcesGrid();
+        }
+
+        function renderResourcesGrid() {
+            const grid = document.getElementById('resource-cards-grid');
+            let items = state.resources.filter(r => r.branch === state.selectedBranch || r.branch === 'All');
+            if (state.selectedCategory !== 'all') {
+                items = items.filter(r => r.cat === state.selectedCategory);
+            }
+
+            document.getElementById('dash-card-file-count').innerText = `${items.length} Files Available`;
+
+            if (items.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full p-8 text-center glass-card rounded-2xl border border-slate-800">
+                        <i class="fa-solid fa-folder-open text-3xl text-slate-600 mb-2"></i>
+                        <p class="text-xs font-bold text-slate-300">No files uploaded yet for this specific category.</p>
+                        <p class="text-[10px] text-slate-500 mt-1">Use the "Attach New Notes / PYQ File" button to attach custom notes.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = items.map(r => `
+                <div class="glass-card rounded-2xl p-5 border border-slate-800 hover:border-brand-500/50 transition flex flex-col justify-between gap-3">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${getCatBadgeClass(r.cat)}">${r.cat}</span>
+                            <span class="text-[10px] text-slate-500 font-mono">${r.type} • ${r.size}</span>
+                        </div>
+                        <h4 class="text-xs font-bold text-white line-clamp-2">${r.title}</h4>
+                        <p class="text-[11px] text-slate-400 mt-1.5 line-clamp-2">${r.desc}</p>
+                    </div>
+                    <div class="flex items-center gap-2 pt-2 border-t border-slate-800/60">
+                        <button onclick="previewFile('${r.id}')" class="flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-[11px] transition flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-eye text-brand-400"></i> Preview
+                        </button>
+                        <button onclick="simulateDownload()" class="py-2 px-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-[11px] transition">
+                            <i class="fa-solid fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getCatBadgeClass(cat) {
+            switch(cat) {
+                case 'PYQ': return 'bg-accent-rose/20 text-accent-rose border border-accent-rose/30';
+                case 'Notes': return 'bg-brand-500/20 text-brand-300 border border-brand-500/30';
+                case 'MCQ': return 'bg-accent-teal/20 text-accent-teal border border-accent-teal/30';
+                case 'VVI': return 'bg-accent-amber/20 text-accent-amber border border-accent-amber/30';
+                default: return 'bg-slate-800 text-slate-300';
+            }
+        }
+
+        function previewFile(id) {
+            const item = state.resources.find(r => r.id === id);
+            if (!item) return;
+
+            document.getElementById('modal-file-title').innerText = item.title;
+            document.getElementById('modal-file-body').innerHTML = `
+                <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+                    <div class="flex items-center justify-between text-[11px] text-slate-400">
+                        <span><strong>Branch:</strong> ${item.branch}</span>
+                        <span><strong>Category:</strong> ${item.cat}</span>
+                    </div>
+                    <p class="text-xs text-slate-200 leading-relaxed">${item.desc}</p>
+                </div>
+                <div class="p-4 rounded-xl bg-slate-950/80 border border-dashed border-slate-800 text-center space-y-2">
+                    <i class="fa-solid fa-file-pdf text-3xl text-accent-rose"></i>
+                    <p class="text-xs font-bold text-white">AKTU Solution Key & Sample Attachment Preview</p>
+                    <p class="text-[10px] text-slate-500">Contains 10-mark solved derivations and unit formulas.</p>
+                </div>
+            `;
+            document.getElementById('file-preview-modal').classList.remove('hidden');
+        }
+
+        function closePreviewModal() {
+            document.getElementById('file-preview-modal').classList.add('hidden');
+        }
+
+        function openUploadModal() {
+            document.getElementById('file-upload-input').click();
+        }
+
+        function setupDragAndDrop() {
+            const dropZone = document.getElementById('drop-zone');
+            if(!dropZone) return;
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    dropZone.classList.add('drop-zone--over');
+                }, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    dropZone.classList.remove('drop-zone--over');
+                }, false);
+            });
+
+            dropZone.addEventListener('drop', (e) => {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                if (files.length) handleFiles(files);
+            });
+        }
+
+        function handleFileSelect(e) {
+            const files = e.target.files;
+            if (files.length) handleFiles(files);
+        }
+
+        function handleFiles(files) {
+            const file = files[0];
+            const newRes = {
+                id: String(Date.now()),
+                title: file.name,
+                branch: state.selectedBranch,
+                cat: 'Notes',
+                type: file.name.split('.').pop().toUpperCase(),
+                size: (file.size / (1024*1024)).toFixed(1) + ' MB',
+                desc: 'User uploaded student study note attachment.'
+            };
+            state.resources.unshift(newRes);
+            renderResourcesGrid();
+            showToast(`File "${file.name}" attached successfully!`);
+        }
+
+        function simulateDownload() {
+            showToast("Downloading file attachment...");
+        }
+
+        /* ==================== ACTIVE RECALL & DIAGRAM LOGIC ==================== */
+        function selectDiagramNode(node) {
+            const inspector = document.getElementById('diagram-inspector');
+            const info = {
+                input: "Pipeline 1: Ingests AKTU branch syllabus, handwritten PDF notes, PYQs, and VVI questions.",
+                ai: "Pipeline 2: Synthesizes input text into 3D active recall flashcards & self-assessment MCQs.",
+                output: "Pipeline 3: Calculates spaced repetition decay curve and opens Pomodoro room with ambient audio."
+            };
+            inspector.innerHTML = `<p class="text-slate-300 font-semibold">${info[node] || info.input}</p>`;
+        }
+
+        function flipCard() {
+            document.getElementById('card-inner').classList.toggle('rotate-y-180');
+        }
+
+        function nextCard() {
+            state.cardIdx = (state.cardIdx + 1) % state.flashcards.length;
+            const c = state.flashcards[state.cardIdx];
+            document.getElementById('card-inner').classList.remove('rotate-y-180');
+            document.getElementById('card-topic').innerText = c.topic;
+            document.getElementById('card-question').innerText = c.q;
+            document.getElementById('card-answer').innerText = c.a;
+            document.getElementById('card-desc').innerText = c.desc;
+        }
+
+        function generateCustomCards() {
+            const text = document.getElementById('notes-input').value.trim();
+            if(!text) {
+                alert("Please paste study text or unit notes first!");
+                return;
+            }
+            state.flashcards.unshift({
+                topic: 'AKTU Custom Unit Prompt',
+                q: `Key concept prompt from notes: "${text.slice(0, 45)}..."`,
+                a: 'Synthesized solution prompt generated.',
+                desc: 'Synthesized from student input notes.'
+            });
+            state.cardIdx = 0;
+            nextCard();
+            showToast("New active recall flashcard synthesized!");
+        }
+
+        function toggleRecallMode(mode) {
+            if(mode === 'cards') {
+                document.getElementById('recall-cards-container').classList.remove('hidden');
+                document.getElementById('recall-quiz-container').classList.add('hidden');
+            } else {
+                document.getElementById('recall-cards-container').classList.add('hidden');
+                document.getElementById('recall-quiz-container').classList.remove('hidden');
+            }
+        }
+
+        function renderQuiz() {
+            const opts = ['Refraction', 'Total Internal Reflection (TIR)', 'Diffraction', 'Polarization'];
+            document.getElementById('quiz-options').innerHTML = opts.map((o, i) => `
+                <button onclick="answerQuiz(${i})" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-800 text-left text-xs hover:border-brand-500 text-slate-300 transition">
+                    ${o}
+                </button>
+            `).join('');
+        }
+
+        function answerQuiz(idx) {
+            const feedback = document.getElementById('quiz-feedback');
+            if(idx === 1) {
+                feedback.innerText = "Correct! Total Internal Reflection (TIR) occurs when angle of incidence exceeds critical angle.";
+                feedback.className = "text-xs font-semibold text-emerald-400";
+            } else {
+                feedback.innerText = "Incorrect. Optical fiber light propagation relies on TIR.";
+                feedback.className = "text-xs font-semibold text-accent-rose";
+            }
+        }
+
+        function renderRoadmap() {
+            const container = document.getElementById('roadmap-units-list');
+            const b = state.selectedBranch;
+            document.getElementById('roadmap-branch-badge').innerText = `${b} • Semester 1`;
+
+            const units = [
+                { name: 'Unit 1: Programming for Problem Solving (Pointers & Memory)', status: 'Mastered', p: 100 },
+                { name: 'Unit 2: Engineering Mathematics-I (Matrices & Calculus)', status: 'In Review', p: 85 },
+                { name: 'Unit 3: Engineering Physics (Lasers & Fiber Optics)', status: 'In Progress', p: 60 },
+                { name: 'Unit 4: Basic Electrical Engg (AC Circuits & Transformers)', status: 'Pending', p: 30 }
+            ];
+
+            container.innerHTML = units.map(u => `
+                <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between text-xs">
+                    <div>
+                        <p class="font-bold text-white">${u.name}</p>
+                        <p class="text-[10px] text-slate-400">${u.status}</p>
+                    </div>
+                    <span class="font-bold text-brand-400">${u.p}%</span>
+                </div>
+            `).join('');
+        }
+
+        /* ==================== TIMER & AUDIO ==================== */
+        function toggleTimer() {
+            const btn = document.getElementById('pomo-toggle-btn');
+            if(state.timerRunning) {
+                clearInterval(state.timerId);
+                state.timerRunning = false;
+                btn.innerText = "Resume Session";
+                if (document.getElementById('synth-sync')?.checked) Synth.stopAll(false);
+            } else {
+                state.timerRunning = true;
+                btn.innerText = "Pause Session";
+                if (document.getElementById('synth-sync')?.checked && !Synth.isPlaying()) Synth.preset('focus');
+                state.timerId = setInterval(() => {
+                    if(state.timerSeconds > 0) {
+                        state.timerSeconds--;
+                    } else if(state.timerMinutes > 0) {
+                        state.timerMinutes--;
+                        state.timerSeconds = 59;
+                    }
+                    const m = String(state.timerMinutes).padStart(2, '0');
+                    const s = String(state.timerSeconds).padStart(2, '0');
+                    document.getElementById('timer-display').innerText = `${m}:${s}`;
+                    if (state.timerMinutes === 0 && state.timerSeconds === 0) {
+                        clearInterval(state.timerId);
+                        state.timerRunning = false;
+                        btn.innerText = "Start Session";
+                        document.getElementById('timer-status').innerText = "Session complete! Take a 5-minute break.";
+                        Synth.stopAll(false);
+                        Synth.chime();
+                        showToast("Pomodoro complete! Time for a short break.");
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(state.timerId);
+            state.timerRunning = false;
+            state.timerMinutes = 25;
+            state.timerSeconds = 0;
+            document.getElementById('timer-display').innerText = "25:00";
+            document.getElementById('pomo-toggle-btn').innerText = "Start Session";
+            document.getElementById('timer-status').innerText = "Ready to enter deep study mode";
+            if (document.getElementById('synth-sync')?.checked) Synth.stopAll(false);
+        }
+
+        /* ==================== EMBEDDED WEB-AUDIO & FOCUS SYNTHESIZER ==================== */
+        const Synth = {
+            ctx: null, master: null, analyser: null, buffers: {},
+            layers: {}, rafId: null, sleepId: null, dropletId: null,
+            masterVol: 0.7, beatHz: 10,
+            vol: { rain: 0.5, white: 0.35, brown: 0.5, drone: 0.4, binaural: 0.3 },
+            meta: [
+                { id: 'rain',     label: 'Rainfall',       icon: 'fa-cloud-rain',  color: 'text-accent-cyan',   desc: 'Soft rain with random drops' },
+                { id: 'white',    label: 'White Noise',    icon: 'fa-wind',        color: 'text-slate-200',     desc: 'Bright, masks voices & chatter' },
+                { id: 'brown',    label: 'Brown Noise',    icon: 'fa-water',       color: 'text-accent-amber',  desc: 'Deep rumble, easy on the ears' },
+                { id: 'drone',    label: 'Synth Drone',    icon: 'fa-wave-square', color: 'text-accent-purple', desc: 'Warm evolving pad (A-E-A)' },
+                { id: 'binaural', label: 'Binaural Beats', icon: 'fa-brain',       color: 'text-accent-teal',   desc: 'Headphones only' }
+            ],
+
+            init() {
+                if (this.ctx) { if (this.ctx.state === 'suspended') this.ctx.resume(); return true; }
+                const AC = window.AudioContext || window.webkitAudioContext;
+                if (!AC) { showToast('Web Audio is not supported in this browser.'); return false; }
+                this.ctx = new AC();
+                const comp = this.ctx.createDynamicsCompressor();
+                this.master = this.ctx.createGain();
+                this.master.gain.value = this.masterVol;
+                this.analyser = this.ctx.createAnalyser();
+                this.analyser.fftSize = 128;
+                this.master.connect(comp); comp.connect(this.analyser); this.analyser.connect(this.ctx.destination);
+                const sr = this.ctx.sampleRate, len = sr * 4;
+                const mk = () => this.ctx.createBuffer(1, len, sr);
+                const w = mk(), p = mk(), br = mk();
+                const wd = w.getChannelData(0), pd = p.getChannelData(0), bd = br.getChannelData(0);
+                let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0,last=0;
+                for (let i = 0; i < len; i++) {
+                    const x = Math.random() * 2 - 1;
+                    wd[i] = x;
+                    b0=0.99886*b0+x*0.0555179; b1=0.99332*b1+x*0.0750759; b2=0.96900*b2+x*0.1538520;
+                    b3=0.86650*b3+x*0.3104856; b4=0.55000*b4+x*0.5329522; b5=-0.7616*b5-x*0.0168980;
+                    pd[i]=(b0+b1+b2+b3+b4+b5+b6+x*0.5362)*0.11; b6=x*0.115926;
+                    last=(last+0.02*x)/1.02; bd[i]=last*3.5;
+                }
+                this.buffers = { white: w, pink: p, brown: br };
+                return true;
+            },
+
+            noiseSrc(name) {
+                const n = this.ctx.createBufferSource();
+                n.buffer = this.buffers[name]; n.loop = true;
+                n.loopStart = Math.random() * 2; // avoid identical phase between layers
+                n.start(0, n.loopStart);
+                return n;
+            },
+
+            build(type, g) {
+                const c = this.ctx, nodes = [], extra = {};
+                const add = (n) => { nodes.push(n); return n; };
+                if (type === 'rain') {
+                    const src = add(this.noiseSrc('pink'));
+                    const hp = c.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 500;
+                    const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 7000;
+                    const sh = c.createGain(); sh.gain.value = 0.8;
+                    const lfo = add(c.createOscillator()); lfo.frequency.value = 0.12;
+                    const lfoG = c.createGain(); lfoG.gain.value = 0.15;
+                    lfo.connect(lfoG); lfoG.connect(sh.gain); lfo.start();
+                    src.connect(hp); hp.connect(lp); lp.connect(sh); sh.connect(g);
+                    this.startDroplets(g);
+                } else if (type === 'white') {
+                    const src = add(this.noiseSrc('white'));
+                    const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 9000;
+                    const sh = c.createGain(); sh.gain.value = 0.35;
+                    src.connect(lp); lp.connect(sh); sh.connect(g);
+                } else if (type === 'brown') {
+                    const src = add(this.noiseSrc('brown'));
+                    const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 900;
+                    src.connect(lp); lp.connect(g);
+                } else if (type === 'drone') {
+                    const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 700; lp.Q.value = 2;
+                    const lfo = add(c.createOscillator()); lfo.frequency.value = 0.07;
+                    const lfoG = c.createGain(); lfoG.gain.value = 350;
+                    lfo.connect(lfoG); lfoG.connect(lp.frequency); lfo.start();
+                    const swell = c.createGain(); swell.gain.value = 0.5;
+                    const lfo2 = add(c.createOscillator()); lfo2.frequency.value = 0.05;
+                    const lfo2G = c.createGain(); lfo2G.gain.value = 0.25;
+                    lfo2.connect(lfo2G); lfo2G.connect(swell.gain); lfo2.start();
+                    [[110,0],[110,7],[164.81,-5],[220,4],[220,-6]].forEach(([f,d]) => {
+                        const o = add(c.createOscillator()); o.type = 'sawtooth'; o.frequency.value = f; o.detune.value = d;
+                        const og = c.createGain(); og.gain.value = 0.12;
+                        o.connect(og); og.connect(lp); o.start();
+                    });
+                    lp.connect(swell); swell.connect(g);
+                } else if (type === 'binaural') {
+                    const mkEar = (freq, pan) => {
+                        const o = add(c.createOscillator()); o.type = 'sine'; o.frequency.value = freq;
+                        const pn = c.createStereoPanner ? c.createStereoPanner() : c.createGain();
+                        if (pn.pan) pn.pan.value = pan;
+                        const og = c.createGain(); og.gain.value = 0.5;
+                        o.connect(og); og.connect(pn); pn.connect(g); o.start();
+                        return o;
+                    };
+                    mkEar(200, -1);
+                    extra.right = mkEar(200 + this.beatHz, 1);
+                }
+                return { nodes, extra };
+            },
+
+            startDroplets(g) {
+                const c = this.ctx;
+                this.dropletsOn = true;
+                const drop = () => {
+                    if (!this.dropletsOn) return;
+                    const t = c.currentTime;
+                    const o = c.createOscillator(), dg = c.createGain();
+                    o.type = 'sine';
+                    const f = 1400 + Math.random() * 2200;
+                    o.frequency.setValueAtTime(f, t);
+                    o.frequency.exponentialRampToValueAtTime(f * 0.4, t + 0.07);
+                    dg.gain.setValueAtTime(0.0001, t);
+                    dg.gain.exponentialRampToValueAtTime(0.03 + Math.random() * 0.04, t + 0.008);
+                    dg.gain.exponentialRampToValueAtTime(0.0001, t + 0.09);
+                    o.connect(dg); dg.connect(g); o.start(t); o.stop(t + 0.1);
+                    this.dropletId = setTimeout(drop, 60 + Math.random() * 260);
+                };
+                drop();
+            },
+
+            toggle(type) {
+                if (!this.init()) return;
+                if (this.layers[type]) this.stopLayer(type); else this.startLayer(type);
+                this.afterChange();
+            },
+
+            startLayer(type, vol) {
+                if (this.layers[type]) return;
+                if (vol != null) this.vol[type] = vol;
+                const g = this.ctx.createGain();
+                g.gain.value = 0;
+                g.connect(this.master);
+                const built = this.build(type, g);
+                g.gain.setTargetAtTime(this.vol[type], this.ctx.currentTime, 0.4);
+                this.layers[type] = { g, ...built };
+            },
+
+            stopLayer(type, instant) {
+                const L = this.layers[type]; if (!L) return;
+                delete this.layers[type];
+                if (type === 'rain') { this.dropletsOn = false; clearTimeout(this.dropletId); }
+                const t = this.ctx.currentTime;
+                L.g.gain.cancelScheduledValues(t);
+                L.g.gain.setTargetAtTime(0, t, instant ? 0.02 : 0.25);
+                setTimeout(() => {
+                    L.nodes.forEach(n => { try { n.stop(); } catch (e) {} });
+                    try { L.g.disconnect(); } catch (e) {}
+                }, instant ? 150 : 1800);
+            },
+
+            stopAll(announce) {
+                if (!this.ctx) return;
+                Object.keys(this.layers).forEach(k => this.stopLayer(k));
+                this.clearReminders();
+                if ('speechSynthesis' in window) speechSynthesis.cancel();
+                clearTimeout(this.sleepId);
+                const sel = document.getElementById('synth-sleep'); if (sel) sel.value = '0';
+                this.afterChange();
+                if (announce) showToast('Focus sounds stopped.');
+            },
+
+            setVol(type, v) {
+                this.vol[type] = v;
+                const L = this.layers[type];
+                if (L) L.g.gain.setTargetAtTime(v, this.ctx.currentTime, 0.05);
+            },
+
+            setMaster(v) {
+                this.masterVol = v;
+                if (this.master) this.master.gain.setTargetAtTime(v, this.ctx.currentTime, 0.05);
+            },
+
+            setBeat(hz) {
+                this.beatHz = Number(hz);
+                const L = this.layers.binaural;
+                if (L && L.extra.right) L.extra.right.frequency.setTargetAtTime(200 + this.beatHz, this.ctx.currentTime, 0.1);
+                this.updateStatus();
+            },
+
+            preset(name) {
+                if (!this.init()) return;
+                const P = {
+                    focus:  { label: 'Deep Focus',        beat: 10, mix: { rain: 0.35, brown: 0.3, binaural: 0.22 } },
+                    night:  { label: 'Exam Night',        beat: 6,  mix: { drone: 0.3, rain: 0.3, binaural: 0.2 } },
+                    hostel: { label: 'Hostel Noise Mask', beat: 10, mix: { white: 0.35, rain: 0.45, brown: 0.3 } }
+                }[name];
+                Object.keys(this.layers).forEach(k => this.stopLayer(k, true));
+                this.beatHz = P.beat;
+                setTimeout(() => {
+                    Object.entries(P.mix).forEach(([k, v]) => this.startLayer(k, v));
+                    this.afterChange();
+                }, 180);
+                showToast(`${P.label} preset playing.`);
+                this.announce(name);
+            },
+
+            setSleep(min) {
+                clearTimeout(this.sleepId);
+                clearTimeout(this.sleepWarnId);
+                min = Number(min);
+                if (!min) return;
+                this.sleepId = setTimeout(() => {
+                    this.stopAll(false);
+                    if (min === 45) this.remind(
+                        '45 minutes are over. The sound has faded out. Close your books and take rest.',
+                        'पैंतालीस मिनट पूरे हुए। आवाज़ बंद हो गई है। किताबें बंद करें और आराम करें।'
+                    );
+                    else showToast('Sleep timer ended. Focus sounds faded out.');
+                }, min * 60000);
+                if (min === 45) {
+                    this.remind(
+                        'Sleep timer set for 45 minutes. I will remind you before the sound fades out.',
+                        'स्लीप टाइमर पैंतालीस मिनट के लिए सेट है। आवाज़ बंद होने से पहले मैं आपको याद दिलाऊँगा।'
+                    );
+                    this.sleepWarnId = setTimeout(() => this.remind(
+                        '5 minutes left on your sleep timer. Wrap up your topic. Drink some water and stretch.',
+                        'स्लीप टाइमर में पाँच मिनट बचे हैं। अपना टॉपिक पूरा करें। थोड़ा पानी पिएँ और स्ट्रेच करें।'
+                    ), 40 * 60000);
+                } else {
+                    showToast(`Sounds will fade out in ${min} min.`);
+                }
+            },
+
+            chime() {
+                if (!this.init()) return;
+                const c = this.ctx, t = c.currentTime;
+                [523.25, 659.25, 783.99].forEach((f, i) => {
+                    const o = c.createOscillator(), g = c.createGain();
+                    o.type = 'sine'; o.frequency.value = f;
+                    g.gain.setValueAtTime(0.0001, t + i * 0.22);
+                    g.gain.exponentialRampToValueAtTime(0.25, t + i * 0.22 + 0.03);
+                    g.gain.exponentialRampToValueAtTime(0.0001, t + i * 0.22 + 1.2);
+                    o.connect(g); g.connect(this.master); o.start(t + i * 0.22); o.stop(t + i * 0.22 + 1.3);
+                });
+            },
+
+            /* ---- Voice + reminders (Hostel Noise Mask, Exam Night, 45-min sleep timer only) ---- */
+            reminderIds: [], sleepWarnId: null,
+
+            speak(en, hi) {
+                const on = document.getElementById('synth-voice');
+                if (!on || !on.checked || !('speechSynthesis' in window)) return;
+                try {
+                    speechSynthesis.cancel();
+                    const voices = speechSynthesis.getVoices();
+                    const say = (text, langPrefs, rate) => {
+                        if (!text) return;
+                        const u = new SpeechSynthesisUtterance(text);
+                        const v = langPrefs.map(l => voices.find(x => x.lang && x.lang.replace('_','-').toLowerCase() === l.toLowerCase())).find(Boolean)
+                               || voices.find(x => x.lang && x.lang.toLowerCase().startsWith(langPrefs[langPrefs.length-1].slice(0,2).toLowerCase()));
+                        if (v) u.voice = v;
+                        u.lang = (v && v.lang) || langPrefs[0];
+                        u.rate = rate; u.volume = 1;
+                        speechSynthesis.speak(u);
+                    };
+                    say(en, ['en-IN', 'en-GB', 'en-US'], 0.95);
+                    say(hi, ['hi-IN'], 0.9);
+                } catch (e) {}
+            },
+
+            /* Banner shows both languages; voice speaks English first, then Hindi */
+            remind(en, hi) {
+                showToast(hi ? `${en}  •  ${hi}` : en);
+                this.speak(en, hi);
+            },
+
+            clearReminders() {
+                this.reminderIds.forEach(clearTimeout);
+                this.reminderIds = [];
+                clearTimeout(this.sleepWarnId);
+            },
+
+            announce(name) {
+                this.clearReminders();
+                if (name === 'hostel') {
+                    this.remind(
+                        'Hostel noise mask is on. Chatter around you will fade into the background. Stay focused on your topic.',
+                        'हॉस्टल नॉइज़ मास्क चालू है। आसपास की बातचीत की आवाज़ कम हो जाएगी। अपने टॉपिक पर ध्यान लगाएँ।'
+                    );
+                } else if (name === 'night') {
+                    this.remind(
+                        'Exam night mode is on. Late revision time. Revise your important topics and formulas first. Set the 45 minute sleep timer so the sound stops by itself.',
+                        'एग्ज़ाम नाइट मोड चालू है। देर रात की रिवीज़न का समय है। पहले ज़रूरी टॉपिक और फ़ॉर्मूले दोहराएँ। आवाज़ अपने आप बंद हो जाए, इसके लिए पैंतालीस मिनट का स्लीप टाइमर लगा लें।'
+                    );
+                    this.reminderIds.push(setTimeout(() => this.remind(
+                        'Late revision check. Drink some water, stretch for a minute, then continue.',
+                        'रिवीज़न चेक। थोड़ा पानी पिएँ, एक मिनट स्ट्रेच करें, फिर पढ़ाई जारी रखें।'
+                    ), 20 * 60000));
+                }
+            },
+
+            isPlaying() { return Object.keys(this.layers).length > 0; },
+
+            afterChange() {
+                this.renderLayers();
+                this.updateStatus();
+                if (this.isPlaying() && !this.rafId) this.draw();
+            },
+
+            updateStatus() {
+                const el = document.getElementById('synth-status'); if (!el) return;
+                const names = Object.keys(this.layers).map(k => this.meta.find(m => m.id === k).label);
+                el.innerText = names.length ? `Playing: ${names.join(' + ')}` : 'Silent. Pick a preset or switch on a layer.';
+            },
+
+            renderLayers() {
+                const box = document.getElementById('synth-layers'); if (!box) return;
+                box.innerHTML = this.meta.map(m => {
+                    const on = !!this.layers[m.id];
+                    const beatSel = m.id === 'binaural' ? `
+                        <select onchange="Synth.setBeat(this.value)" aria-label="Brainwave target" class="mt-2 w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-1.5 text-[11px] text-white focus:outline-none focus:border-brand-500">
+                            <option value="6" ${this.beatHz==6?'selected':''}>Theta 6 Hz (calm, revision)</option>
+                            <option value="10" ${this.beatHz==10?'selected':''}>Alpha 10 Hz (relaxed focus)</option>
+                            <option value="18" ${this.beatHz==18?'selected':''}>Beta 18 Hz (alert, problem solving)</option>
+                        </select>` : '';
+                    return `
+                    <div class="p-3.5 rounded-xl border ${on ? 'border-accent-teal bg-accent-teal/10' : 'border-slate-800 bg-slate-900/70'} transition">
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-2.5 min-w-0">
+                                <i class="fa-solid ${m.icon} ${m.color} w-5 text-center"></i>
+                                <div class="min-w-0">
+                                    <p class="text-xs font-bold text-white">${m.label}</p>
+                                    <p class="text-[10px] text-slate-400 truncate">${m.desc}</p>
+                                </div>
+                            </div>
+                            <button id="audio-${m.id}" onclick="Synth.toggle('${m.id}')" aria-pressed="${on}" class="shrink-0 px-3 py-1.5 rounded-lg text-[11px] font-bold transition ${on ? 'bg-accent-teal text-slate-950' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">${on ? 'On' : 'Off'}</button>
+                        </div>
+                        <input type="range" min="0" max="100" value="${Math.round(this.vol[m.id]*100)}" aria-label="${m.label} volume" oninput="Synth.setVol('${m.id}', this.value/100)" class="w-full mt-3 accent-teal-500">
+                        ${beatSel}
+                    </div>`;
+                }).join('');
+            },
+
+            draw() {
+                const cv = document.getElementById('synth-viz');
+                if (!cv || !this.analyser || !this.isPlaying()) {
+                    this.rafId = null;
+                    if (cv) cv.getContext('2d').clearRect(0, 0, cv.width, cv.height);
+                    return;
+                }
+                const ctx2 = cv.getContext('2d'), data = new Uint8Array(this.analyser.frequencyBinCount);
+                this.analyser.getByteFrequencyData(data);
+                ctx2.clearRect(0, 0, cv.width, cv.height);
+                const n = data.length, bw = cv.width / n;
+                const grad = ctx2.createLinearGradient(0, 0, cv.width, 0);
+                grad.addColorStop(0, '#14b8a6'); grad.addColorStop(0.5, '#6366f1'); grad.addColorStop(1, '#a855f7');
+                ctx2.fillStyle = grad;
+                for (let i = 0; i < n; i++) {
+                    const h = Math.max(2, (data[i] / 255) * cv.height);
+                    ctx2.fillRect(i * bw + 1, cv.height - h, bw - 2, h);
+                }
+                this.rafId = requestAnimationFrame(() => this.draw());
+            }
+        };
+
+        /* Backwards-compatible entry point used by older markup */
+        function toggleAudio(type) { Synth.toggle(type === 'white' ? 'white' : type); }
+
+        function runBreathingRoutine() {
+            const circle = document.getElementById('breathing-circle');
+            circle.innerText = "Inhale";
+            circle.className = "w-28 h-28 rounded-full bg-accent-teal/30 border-4 border-accent-teal mx-auto flex items-center justify-center text-xs font-bold text-accent-teal transition-all duration-3000";
+            setTimeout(() => {
+                circle.innerText = "Exhale";
+                circle.className = "w-20 h-20 rounded-full bg-accent-rose/20 border-2 border-accent-rose mx-auto flex items-center justify-center text-xs font-bold text-accent-rose transition-all duration-3000";
+            }, 3000);
+        }
+
+        function showToast(msg) {
+            const banner = document.getElementById('toast-banner');
+            document.getElementById('toast-message').innerText = msg;
+            banner.classList.remove('hidden');
+            setTimeout(() => banner.classList.add('hidden'), 5000);
+        }
+
+        /* On Load */
+        window.onload = function() {
+            initApp();
+            Synth.renderLayers();
+        };
+    </script>
+    <!-- ==================== INACTIVITY GUARDIAN ==================== -->
+    <div id="idle-modal" class="hidden fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="glass-card max-w-sm w-full rounded-3xl p-6 text-center space-y-4 border border-accent-amber/40">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-accent-amber/20 text-accent-amber flex items-center justify-center text-2xl"><i class="fa-solid fa-bell"></i></div>
+            <h2 class="text-lg font-extrabold text-white font-outfit">Are you still studying?</h2>
+            <p class="text-xs text-slate-300">No activity for <span id="idle-limit">90 seconds</span><span id="idle-mail-note"></span>. The website will close in <strong id="idle-countdown" class="text-accent-rose">120</strong> seconds.</p>
+            <button onclick="Guardian.resume()" class="w-full py-3 rounded-xl bg-gradient-to-r from-brand-600 to-accent-purple text-white font-bold text-xs">Yes, I'm studying</button>
+        </div>
+    </div>
+    <div id="idle-closed" class="hidden fixed inset-0 z-[110] bg-slate-950 flex items-center justify-center p-6 text-center">
+        <div class="space-y-3">
+            <i class="fa-solid fa-moon text-4xl text-brand-500"></i>
+            <h2 class="text-xl font-extrabold text-white font-outfit">Session closed due to inactivity</h2>
+            <p class="text-xs text-slate-400">You can close this tab now. Reload the page to start studying again.</p>
+        </div>
+    </div>
+
+    <script>
+    const Guardian = {
+        /* ---- Settings ---- */
+        IDLE_MS:  90 * 1000,   // inactivity (90 seconds) before the email is sent
+        GRACE_MS: 2 * 60000,   // time to respond after the email before closing
+        EMAILJS: {             // free account at emailjs.com -> fill these 3 values
+            serviceId:  '',    // e.g. 'service_abc123'
+            templateId: '',    // e.g. 'template_xyz789'
+            publicKey:  ''     // e.g. 'AbCdEf123456'
+        },
+        /* ---- State ---- */
+        lastActive: Date.now(), phase: 'off', idleAt: 0, tick: null, lastMove: 0,
+        EVENTS: ['mousemove','mousedown','keydown','touchstart','scroll','wheel','click'],
+
+        init() {
+            if (/[?&]idletest=1/.test(location.search)) { this.IDLE_MS = 10000; this.GRACE_MS = 10000; } // quick test mode
+            this.onActivity = (ev) => {
+                const now = Date.now();
+                if (now - this.lastMove < 500) return;          // throttle
+                this.lastMove = now;
+                if (this.phase === 'warned') {
+                    if (ev.type === 'mousemove') return; // a stray mouse nudge doesn't count after warning
+                    this.resume();
+                } else if (this.phase === 'watching') this.lastActive = now;
+            };
+            this.EVENTS.forEach(e => document.addEventListener(e, this.onActivity, { passive: true }));
+        },
+        start() {
+            this.stop(); this.phase = 'watching'; this.lastActive = Date.now();
+            this.tick = setInterval(() => this.check(), 1000);
+        },
+        stop() {
+            clearInterval(this.tick); this.tick = null; this.phase = 'off';
+            document.getElementById('idle-modal').classList.add('hidden');
+        },
+        check() {
+            const now = Date.now();
+            if (this.phase === 'watching' && now - this.lastActive >= this.IDLE_MS) this.warn();
+            else if (this.phase === 'warned') {
+                const left = Math.ceil((this.idleAt + this.GRACE_MS - now) / 1000);
+                document.getElementById('idle-countdown').innerText = Math.max(left, 0);
+                if (left <= 0) this.closeSite();
+            }
+        },
+        fmtSpan(ms) { const s = Math.round(ms / 1000); return s % 60 === 0 && s >= 60 ? (s / 60) + ' minute' + (s / 60 > 1 ? 's' : '') : s + ' seconds'; },
+        async warn() {
+            document.getElementById('idle-limit').innerText = this.fmtSpan(this.IDLE_MS);
+            this.phase = 'warned'; this.idleAt = Date.now();
+            document.getElementById('idle-modal').classList.remove('hidden');
+            document.getElementById('idle-mail-note').innerText = '';
+            try { Synth.speak('Are you still studying? Please respond, or the website will close.', 'क्या आप अभी भी पढ़ रहे हैं? कृपया जवाब दें, वरना वेबसाइट बंद हो जाएगी।'); } catch (e) {}
+            const sent = await this.sendEmail();
+            if (this.phase === 'warned')
+                document.getElementById('idle-mail-note').innerText = sent ? ' (we emailed you a reminder)' : '';
+        },
+        async sendEmail() {
+            const u = state.currentUser, c = this.EMAILJS;
+            if (!u || !u.email || !c.serviceId || !c.templateId || !c.publicKey) return false;
+            try {
+                const r = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        service_id: c.serviceId, template_id: c.templateId, user_id: c.publicKey,
+                        template_params: {
+                            to_email: u.email, to_name: u.name || 'Student', device: (window.Device && Device.label) || 'device',
+                            message: `Hi ${u.name || 'Student'}, you have been inactive on StudyPulse AI (on your ${(window.Device && Device.label) || 'device'}) for ${this.fmtSpan(this.IDLE_MS)}. Please return and continue studying. If there is no activity within ${this.fmtSpan(this.GRACE_MS)}, the website will close automatically.`
+                        }
+                    })
+                });
+                return r.ok;
+            } catch (e) { return false; }
+        },
+        resume() {
+            this.phase = 'watching'; this.lastActive = Date.now();
+            document.getElementById('idle-modal').classList.add('hidden');
+            showToast('Welcome back! Keep going 💪');
+        },
+        closeSite() {
+            this.stop();
+            try { Synth.stopAll && Synth.stopAll(); } catch (e) {}
+            document.getElementById('idle-closed').classList.remove('hidden');
+            window.close();                                        // works if the tab was opened by a script
+            setTimeout(() => location.replace('about:blank'), 800); // otherwise blank the page
+        }
+    };
+    Guardian.init();
+    /* Run only while a student is logged in */
+    (function () {
+        const _show = showWorkspace, _out = handleLogout;
+        showWorkspace = function () { _show.apply(this, arguments); Guardian.start(); };
+        handleLogout  = function () { _out.apply(this, arguments);  Guardian.stop(); };
+    })();
+    </script>
+    <script>
+    /* ==================== AUTOMATIC DEVICE DETECTION ==================== */
+    const Device = {
+        mode: 'laptop', label: 'laptop', auto: 'laptop', timer: null, wake: null,
+        COLORS: { dashboard:'#818cf8', 'aktu-hub':'#fbbf24', recall:'#c084fc', roadmap:'#2dd4bf', pomodoro:'#fb7185', analytics:'#22d3ee', reminders:'#fb923c' },
+        ICONS: {
+            dashboard: '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M9.5 21v-5.5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1V21"/></svg>',
+            'aktu-hub': '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M8 13.5h8M8 16.5h5"/></svg>',
+            recall: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect class="f" x="3.5" y="7" width="13" height="13" rx="2.5"/><rect x="3.5" y="7" width="13" height="13" rx="2.5"/><path d="M7.5 7V5.5A1.5 1.5 0 0 1 9 4h9.5A1.5 1.5 0 0 1 20 5.5V15a1.5 1.5 0 0 1-1.5 1.5h-2"/><path d="M10 11l.9 2.1L13 14l-2.1.9L10 17l-.9-2.1L7 14l2.1-.9z"/></svg>',
+            roadmap: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle class="f" cx="6" cy="19" r="2.4"/><circle cx="6" cy="19" r="2.4"/><circle class="f" cx="18" cy="5" r="2.4"/><circle cx="18" cy="5" r="2.4"/><path d="M6 16.6V13a3 3 0 0 1 3-3h6a3 3 0 0 0 3-3"/><circle cx="12" cy="10" r=".9"/></svg>',
+            pomodoro: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle class="f" cx="12" cy="13.5" r="7.5"/><circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5V9.5M12 13.5l2.5 1.5M9.5 3h5M12 3v3"/></svg>',
+            analytics: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 20.5h17"/><rect class="f" x="5" y="12" width="3.2" height="8.5" rx="1"/><rect x="5" y="12" width="3.2" height="8.5" rx="1"/><rect class="f" x="10.4" y="8" width="3.2" height="12.5" rx="1"/><rect x="10.4" y="8" width="3.2" height="12.5" rx="1"/><rect class="f" x="15.8" y="3.5" width="3.2" height="17" rx="1"/><rect x="15.8" y="3.5" width="3.2" height="17" rx="1"/></svg>',
+            reminders: '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0M12 3v2"/></svg>'
+        },
+        TABS: [['dashboard','fa-chart-pie','Home'],['aktu-hub','fa-folder-open','Hub'],['recall','fa-brain','Recall'],
+               ['roadmap','fa-sitemap','Syllabus'],['pomodoro','fa-clock','Focus'],['analytics','fa-chart-line','Matrix'],['reminders','fa-bell','Alerts']],
+
+        detect() {                                   // 1) real device signals  2) window width as fallback
+            const ua = navigator.userAgent || '', uad = navigator.userAgentData;
+            const touchMac = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;   // iPadOS pretends to be a Mac
+            if (/iPad|Tablet|PlayBook|Silk/i.test(ua) || (/Android/i.test(ua) && !/Mobile/i.test(ua)) || touchMac) return 'tablet';
+            if (/iPhone|iPod/i.test(ua) || (/Android/i.test(ua) && /Mobile/i.test(ua)) || (uad && uad.mobile)) return 'mobile';
+            const w = window.innerWidth;                 // desktop browsers: follow the window size
+            return w < 640 ? 'mobile' : (w < 1024 ? 'tablet' : 'laptop');
+        },
+        chosen() {                                    // priority: ?device=  >  saved choice  >  automatic
+            const q = new URLSearchParams(location.search).get('device');
+            let saved = null; try { saved = localStorage.getItem('studypulse_device'); } catch (e) {}
+            const ok = v => ['mobile','tablet','laptop'].includes(v) ? v : null;
+            return ok(q) || ok(saved) || this.detect();
+        },
+        apply() {
+            this.auto = this.detect();
+            this.mode = this.chosen();
+            this.label = { mobile: 'phone', tablet: 'tablet', laptop: 'laptop' }[this.mode];
+            document.documentElement.dataset.device = this.mode;
+            const hdr = document.querySelector('#app-workspace header');
+            if (hdr) document.documentElement.style.setProperty('--hdr', hdr.offsetHeight + 'px');
+            const sel = document.getElementById('device-select'), tag = document.getElementById('device-detected');
+            if (tag) tag.innerText = 'Detected: ' + { mobile: 'Phone', tablet: 'Tablet', laptop: 'Laptop / Desktop' }[this.auto];
+            if (sel) { let s = ''; try { s = localStorage.getItem('studypulse_device') || ''; } catch (e) {} sel.value = s; }
+            this.markActive(typeof state !== 'undefined' ? state.currentTab : 'dashboard');
+        },
+        build() {
+            const ws = document.getElementById('app-workspace');
+            const header = ws.querySelector('header');
+            const top = header.querySelector('nav'); if (top) top.classList.add('dev-topnav');
+            const strip = header.querySelector('.lg\\:hidden'); if (strip) strip.classList.add('dev-strip');
+            const nav = document.createElement('nav');
+            nav.id = 'dev-nav'; nav.className = 'dev-nav'; nav.setAttribute('aria-label', 'Main navigation');
+            nav.innerHTML = this.TABS.map(t => `<button type="button" data-tab="${t[0]}" onclick="switchTab('${t[0]}')" style="--ic:${this.COLORS[t[0]]}">${this.ICONS[t[0]]}<span>${t[2]}</span></button>`).join('');
+            ws.appendChild(nav);
+            /* laptop: show shortcut numbers on hover */
+            if (top) [...top.querySelectorAll('button')].forEach((b, i) => b.title = `Shortcut: press ${i + 1}`);
+            if (top) top.querySelectorAll('button').forEach(b => {
+                const key = (b.id || '').replace('nav-', ''), ic = b.querySelector('i');
+                if (ic && this.ICONS[key]) { const w = document.createElement('span'); w.className = 'tnav-ic'; w.innerHTML = this.ICONS[key]; ic.replaceWith(w); }
+            });
+            /* layout chooser inside the profile menu */
+            const dd = document.getElementById('profile-dropdown');
+            if (dd) {
+                const box = document.createElement('div');
+                box.className = 'pt-3 border-t border-slate-800 space-y-1';
+                box.innerHTML = `<p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Screen layout</p>
+                    <p id="device-detected" class="text-[10px] text-accent-teal"></p>
+                    <select id="device-select" onchange="Device.override(this.value)" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-1.5 text-[11px] text-white focus:outline-none focus:border-brand-500">
+                        <option value="">Auto (recommended)</option><option value="mobile">Phone</option><option value="tablet">Tablet</option><option value="laptop">Laptop</option>
+                    </select>`;
+                dd.appendChild(box);
+            }
+        },
+        override(v) { try { v ? localStorage.setItem('studypulse_device', v) : localStorage.removeItem('studypulse_device'); } catch (e) {} this.apply(); },
+        markActive(id) {
+            document.querySelectorAll('#dev-nav button').forEach(b => b.classList.toggle('active', b.dataset.tab === id));
+        },
+        /* phones/tablets: keep the screen awake while studying so the tracker is not frozen by auto-lock */
+        async lock() {
+            if (this.mode === 'laptop' || !('wakeLock' in navigator)) return;
+            try { this.wake = await navigator.wakeLock.request('screen'); } catch (e) {}
+        },
+        unlock() { try { this.wake && this.wake.release(); } catch (e) {} this.wake = null; },
+
+        init() {
+            this.build(); this.apply();
+            const redo = () => { clearTimeout(this.timer); this.timer = setTimeout(() => this.apply(), 150); };
+            addEventListener('resize', redo); addEventListener('orientationchange', redo);
+            /* laptop keyboard shortcuts: 1-6 switch sections */
+            addEventListener('keydown', e => {
+                if (this.mode !== 'laptop' || e.ctrlKey || e.metaKey || e.altKey) return;
+                if (/INPUT|TEXTAREA|SELECT/.test((e.target.tagName || '')) || e.target.isContentEditable) return;
+                if (document.getElementById('app-workspace').classList.contains('hidden')) return;
+                const i = parseInt(e.key, 10);
+                if (i >= 1 && i <= this.TABS.length) switchTab(this.TABS[i - 1][0]);
+            });
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible' && Guardian.phase !== 'off') this.lock();
+            });
+        }
+    };
+    Device.init();
+
+    /* keep the nav in sync with tab changes; start at the top on small screens */
+    (function () {
+        const _sw = switchTab;
+        switchTab = function (id) { _sw.apply(this, arguments); Device.markActive(id); if (Device.mode !== 'laptop') window.scrollTo(0, 0); };
+        const gs = Guardian.start.bind(Guardian), gp = Guardian.stop.bind(Guardian);
+        Guardian.start = function () { gs(); Device.lock(); };
+        Guardian.stop  = function () { gp(); Device.unlock(); };
+        const _show = showWorkspace;
+        showWorkspace = function () { _show.apply(this, arguments); Device.apply(); };
+    })();
+    </script>
+    <div id="rem-modal" class="hidden fixed inset-0 z-[105] bg-slate-950/90 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="glass-card max-w-sm w-full rounded-3xl p-6 text-center space-y-4 border border-brand-500/40">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-brand-500/20 text-brand-300 flex items-center justify-center text-2xl"><i class="fa-solid fa-bell fa-shake"></i></div>
+            <p class="text-[11px] font-bold uppercase tracking-wider text-accent-amber" id="rem-modal-when"></p>
+            <h2 class="text-lg font-extrabold text-white font-outfit" id="rem-modal-title"></h2>
+            <p class="text-xs text-slate-300" id="rem-modal-note"></p>
+            <div class="grid grid-cols-2 gap-2">
+                <button onclick="Reminders.snooze()" class="py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs">Snooze 10 min</button>
+                <button onclick="Reminders.dismiss()" class="py-3 rounded-xl bg-gradient-to-r from-brand-600 to-accent-purple text-white font-bold text-xs">Got it</button>
+            </div>
+        </div>
+    </div>
+    <script>
+    /* ==================== REMINDERS ==================== */
+    const Reminders = {
+        KEY: 'studypulse_reminders', list: [], ringing: [], timer: null,
+        load() { try { this.list = JSON.parse(localStorage.getItem(this.KEY) || '[]'); } catch (e) { this.list = []; } },
+        save() { try { localStorage.setItem(this.KEY, JSON.stringify(this.list)); } catch (e) {} },
+        esc(t) { return String(t || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); },
+        pad(n) { return String(n).padStart(2, '0'); },
+        toInput(d) { return `${d.getFullYear()}-${this.pad(d.getMonth() + 1)}-${this.pad(d.getDate())}T${this.pad(d.getHours())}:${this.pad(d.getMinutes())}`; },
+        fmt(ms) { return new Date(ms).toLocaleString([], { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); },
+        left(ms) {
+            let s = Math.max(0, Math.round((ms - Date.now()) / 1000));
+            const d = Math.floor(s / 86400); s %= 86400; const h = Math.floor(s / 3600); s %= 3600; const m = Math.floor(s / 60);
+            return d ? `${d}d ${h}h` : (h ? `${h}h ${m}m` : (m ? `${m}m ${s % 60}s` : `${s}s`));
+        },
+        quick(v) {
+            const d = new Date();
+            if (typeof v === 'number') d.setMinutes(d.getMinutes() + v);
+            else if (v === 'tonight') { d.setHours(20, 0, 0, 0); if (d <= new Date()) d.setDate(d.getDate() + 1); }
+            else { d.setDate(d.getDate() + 1); d.setHours(7, 0, 0, 0); }
+            document.getElementById('rem-when').value = this.toInput(d);
+        },
+        add() {
+            const title = document.getElementById('rem-title').value.trim();
+            const when = document.getElementById('rem-when').value;
+            if (!title) { showToast('Please type what to remind you about.'); return; }
+            if (!when) { showToast('Please choose a date and time.'); return; }
+            const at = new Date(when).getTime();
+            if (isNaN(at) || at <= Date.now()) { showToast('Pick a time in the future.'); return; }
+            this.list.push({
+                id: Date.now() + Math.random().toString(36).slice(2, 6), title,
+                note: document.getElementById('rem-note').value.trim(), at,
+                repeat: document.getElementById('rem-repeat').value,
+                email: document.getElementById('rem-email').checked, done: false
+            });
+            this.save();
+            ['rem-title', 'rem-note', 'rem-when'].forEach(id => document.getElementById(id).value = '');
+            showToast(`Reminder set for ${this.fmt(at)}`);
+            this.askPermission(true); this.render();
+        },
+        remove(id) { this.list = this.list.filter(r => r.id !== id); this.save(); this.render(); },
+        clearDone() { this.list = this.list.filter(r => !r.done); this.save(); this.render(); },
+
+        render() {
+            const up = document.getElementById('rem-upcoming'); if (!up) return;
+            const pending = this.list.filter(r => !r.done).sort((a, b) => a.at - b.at);
+            const done = this.list.filter(r => r.done).sort((a, b) => b.at - a.at).slice(0, 15);
+            const rep = { none: '', daily: ' · daily', weekly: ' · weekly' };
+            up.innerHTML = pending.length ? pending.map(r => `
+                <div class="flex items-center justify-between gap-3 p-3 rounded-xl bg-slate-900/70 border border-slate-800">
+                    <div class="min-w-0">
+                        <p class="text-xs font-bold text-white truncate">${this.esc(r.title)}</p>
+                        <p class="text-[10px] text-slate-400 truncate">${this.fmt(r.at)}${rep[r.repeat]}${r.email ? ' · email' : ''}${r.note ? ' · ' + this.esc(r.note) : ''}</p>
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <span class="text-[11px] font-bold text-accent-teal" data-left="${r.at}">${this.left(r.at)}</span>
+                        <button onclick="Reminders.remove('${r.id}')" aria-label="Delete reminder" class="w-8 h-8 rounded-lg text-slate-400 hover:text-accent-rose hover:bg-accent-rose/10"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>`).join('') : '<p class="text-xs text-slate-500">No upcoming reminders. Add one on the left.</p>';
+            document.getElementById('rem-done').innerHTML = done.length ? done.map(r => `
+                <div class="flex items-center justify-between gap-3 p-3 rounded-xl bg-slate-900/40 border border-slate-800/60">
+                    <div class="min-w-0"><p class="text-xs font-semibold text-slate-300 truncate">${this.esc(r.title)}</p><p class="text-[10px] text-slate-500">${this.fmt(r.at)}</p></div>
+                    <button onclick="Reminders.remove('${r.id}')" aria-label="Delete" class="w-8 h-8 rounded-lg text-slate-500 hover:text-accent-rose"><i class="fa-solid fa-xmark"></i></button>
+                </div>`).join('') : '<p class="text-xs text-slate-500">Nothing yet.</p>';
+            this.status();
+        },
+        status() {
+            const c = Guardian.EMAILJS, ok = c.serviceId && c.templateId && c.publicKey;
+            const el = document.getElementById('rem-email-status');
+            if (el) el.innerText = ok ? '' : 'Email is not set up yet (add your EmailJS keys in the code). Other alerts still work.';
+            const b = document.getElementById('rem-notif-btn');
+            if (b) b.classList.toggle('hidden', !('Notification' in window) || Notification.permission !== 'default');
+        },
+        askPermission(silent) {
+            if (!('Notification' in window) || Notification.permission !== 'default') return;
+            Notification.requestPermission().then(() => this.status()).catch(() => {});
+        },
+
+        tick() {
+            const now = Date.now();
+            this.list.filter(r => !r.done && r.at <= now).forEach(r => this.fire(r, now));
+            if (document.getElementById('tab-reminders') && !document.getElementById('tab-reminders').classList.contains('hidden')) {
+                document.querySelectorAll('[data-left]').forEach(el => el.innerText = this.left(+el.dataset.left));
+            }
+        },
+        fire(r, now) {
+            const late = now - r.at > 2 * 60000;
+            this.ringing.push({ r, late, firedFor: r.at });
+            if (r.repeat === 'none') r.done = true;
+            else { const step = r.repeat === 'daily' ? 86400000 : 7 * 86400000; while (r.at <= now) r.at += step; }
+            this.save(); this.render();
+            const text = `Reminder: ${r.title}${r.note ? '. ' + r.note : ''}`;
+            try { Synth.speak(text, 'रिमाइंडर: ' + r.title); } catch (e) {}
+            if ('Notification' in window && Notification.permission === 'granted') {
+                try { new Notification('StudyPulse reminder', { body: r.title + (r.note ? ' - ' + r.note : '') }); } catch (e) {}
+            }
+            if (r.email) this.mail(r, late);
+            this.showNext();
+        },
+        showNext() {
+            const modal = document.getElementById('rem-modal');
+            if (!this.ringing.length) { modal.classList.add('hidden'); return; }
+            const { r, late, firedFor } = this.ringing[0];
+            document.getElementById('rem-modal-when').innerText = late ? `Missed at ${this.fmt(firedFor)}` : 'Reminder · now';
+            document.getElementById('rem-modal-title').innerText = r.title;
+            document.getElementById('rem-modal-note').innerText = r.note || '';
+            modal.classList.remove('hidden');
+        },
+        dismiss() { this.ringing.shift(); this.showNext(); },
+        snooze() {
+            const { r } = this.ringing.shift();
+            this.list.push({ id: Date.now() + 's', title: r.title, note: r.note, at: Date.now() + 10 * 60000, repeat: 'none', email: false, done: false });
+            this.save(); this.render(); this.showNext(); showToast('Snoozed for 10 minutes.');
+        },
+        async mail(r, late) {
+            const u = state.currentUser, c = Guardian.EMAILJS;
+            if (!u || !u.email || !c.serviceId || !c.templateId || !c.publicKey) return;
+            try {
+                await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ service_id: c.serviceId, template_id: c.templateId, user_id: c.publicKey,
+                        template_params: { to_email: u.email, to_name: u.name || 'Student', device: (window.Device && Device.label) || 'device',
+                            message: `Hi ${u.name || 'Student'}, reminder from StudyPulse AI: ${r.title}${r.note ? ' (' + r.note + ')' : ''}. ${late ? 'This was due earlier and was delivered when you opened the app.' : 'It is time!'}` } })
+                });
+            } catch (e) {}
+        },
+        init() {
+            this.load(); this.render();
+            const w = document.getElementById('rem-when'); if (w) w.min = this.toInput(new Date());
+            this.timer = setInterval(() => this.tick(), 5000);
+            document.addEventListener('visibilitychange', () => { if (!document.hidden) this.tick(); });
+            this.tick();
+        }
+    };
+    Reminders.init();
+    (function () {
+        const _sw = switchTab;
+        switchTab = function (id) { _sw.apply(this, arguments); if (id === 'reminders') { Reminders.render(); const w = document.getElementById('rem-when'); if (w) w.min = Reminders.toInput(new Date()); } };
+    })();
+    </script>
+</body>
+</html>
